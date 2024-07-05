@@ -6,7 +6,7 @@
 #' @keywords date
 #' @export
 #' @examples
-#' pretty_date()
+#' pretty_date("24-11")
 
 pretty_date <- function(date) {
   dplyr::case_when(!is.na(suppressWarnings(lubridate::ym(date))) ~ format(suppressWarnings(lubridate::ym(date)), format = "%B %Y"),

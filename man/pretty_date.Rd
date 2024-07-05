@@ -14,6 +14,6 @@ This function takes a string as input, parses it as a date if possible
 and outputs a date in the standard Social Security Scotland publication format
 }
 \examples{
-pretty_date()
+pretty_date("24-11")
 }
 \keyword{date}
