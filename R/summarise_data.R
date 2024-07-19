@@ -39,6 +39,6 @@ adorn_financial_years <- function(data, month, financial_years){
     dplyr::filter({{month}} != "Financial year -") %>%
     dplyr::filter({{month}} != "Financial year NA-NA") %>%
     dplyr::mutate(is_fin_year = stringr::str_detect({{month}},  "Financial year")) %>%
-    dplyr::arrange(is_fin_year) %>%
-    dplyr::select(-c(is_fin_year))
+    dplyr::arrange(.data$is_fin_year) %>%
+    dplyr::select(-c(.data$is_fin_year))
 }

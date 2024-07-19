@@ -20,6 +20,6 @@ Scotland date format, i.e. "\%B \%Y"
 }
 \examples{
 convert_date("24-11")
-convert_date("13/11/24", \%d/\%m/\%Y)
-convert_date("13 November 2024", \%d \%B \%Y, \%Y-\%m)
+convert_date("13/11/24", "\%d/\%m/\%Y")
+convert_date("13 November 2024", "\%d \%B \%Y", "\%Y-\%m")
 }

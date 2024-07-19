@@ -9,8 +9,8 @@
 #' @export
 #' @examples
 #' convert_date("24-11")
-#' convert_date("13/11/24", %d/%m/%Y)
-#' convert_date("13 November 2024", %d %B %Y, %Y-%m)
+#' convert_date("13/11/24", "%d/%m/%Y")
+#' convert_date("13 November 2024", "%d %B %Y", "%Y-%m")
 
 convert_date <- function(date, input_format = "%Y-%m",output_format = "%B %Y") {
   if(!is.na(suppressWarnings(readr::parse_date(date,input_format)))) {
@@ -22,14 +22,10 @@ convert_date <- function(date, input_format = "%Y-%m",output_format = "%B %Y") {
 #'
 #' This function applies [convert_date()] over a vector, defaulting to the standard Social
 #' Scotland date format, i.e. "%B %Y"
-#' @param date Vector of dates to be converted to new format
+#' @param data Vector of dates to be converted to new format
 #' @param input_format Input format of date. Defaults to "%Y-%m"
 #' @param output_format Output format of date. Defaults to "%B %Y"
 #' @export
-#' @examples
-#' convert_date("24-11")
-#' convert_date("13/11/24", %d/%m/%Y)
-#' convert_date("13 November 2024", %d %B %Y, %Y-%m)
 
 convert_col_date <- function(data, input_format = "%Y-%m",output_format = "%B %Y") {
   data %>% purrr::modify(convert_date)

@@ -7,7 +7,7 @@
 make_all_number_percent(table, across = tidyselect::contains("Percentage"))
 }
 \arguments{
-\item{table}{Table to have values converted}
+\item{table}{A data frame}
 
 \item{across}{Columns to convert across. Takes tidyselect specification.
 #' Defaults to \code{contains("Percentage")}}

@@ -6,19 +6,19 @@
 \usage{
 make_all_supp_negative(
   table,
-  suppress = "\\\\[c\\\\]",
+  convert = "\\\\[c\\\\]",
   across = tidyselect::everything()
 )
 }
 \arguments{
-\item{table}{Table to have values converted}
+\item{table}{A data frame}
+
+\item{convert}{String indicating suppression, to be converted}
 
 \item{across}{Columns to convert across. Takes tidyselect specification.
 Defaults to \code{everything()}}
-
-\item{convert}{String indicating suppression, to be converted}
 }
 \description{
 This function applies \code{\link[=make_supp_negative]{make_supp_negative()}} across a whole table.
-Defaults to converting the string "\link{c}".
+Defaults to converting the string "[c]".
 }
