@@ -13,6 +13,7 @@ Imports:
     lubridate,
     purrr,
     readr,
+    tidyr,
     tidyselect
 Suggests: 
     testthat (>= 3.0.0)
