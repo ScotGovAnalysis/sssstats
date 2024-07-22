@@ -10,12 +10,11 @@
 #' @param other Value to be substituted for non-allowed values. Defaults to "Other"
 #' @export
 
-
 bucket_other <- function(data, column, allowed_values, other = "Other"){
    data %>%
     dplyr::mutate({{column}} := dplyr::case_when(
-      {{column}} %in% allowed_values ~
-        {{column}},
+      .data[[column]] %in% allowed_values ~
+        .data[[column]],
       .default = other))
 }
 
