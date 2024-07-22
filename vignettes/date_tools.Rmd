@@ -1,0 +1,98 @@
+---
+title: "Manipulating dates"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{date_tools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+This vignette outlines the tools available for working with dates in the `sssstats` package.
+
+We start by loading the `sssstats` package. We also load `dplyr`, `janitor` and `lubridate` to use in these examples.
+
+```{r setup, message = FALSE}
+library(sssstats)
+library(dplyr)
+library(janitor)
+library(lubridate)
+```
+
+
+We use the fictional example data below throughout the course of this vignette. Note that this data has already been summarised by month.
+
+```{r create_data, echo = FALSE}
+
+set.seed(89)
+
+data <- tibble(month = c("2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01","2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01","2026-02"),
+               number_of_payments = c(10, 23, 25, 27, 35, 39, 48, 56, 60, 75, 70, 79, 85, 60, 47, 42, 30, 22, 12, 15, 10),
+               rand = runif(21)) %>% 
+  mutate(value_of_payments = ceiling(50 * number_of_payments + 20 * rand)) %>% 
+  select(-rand)
+
+```
+
+
+```{r data}
+data
+```
+
+
+## Converting between date formats
+Commonly, we will read in dates in a variety of formats based on the input data. The read in format is often fine for working with in R. However, when outputting tables for publication, any date fields should be in our standard format, e.g. "November 2024" rather than "2024-11". The `convert_date` function takes a date sting as an input and outputs it in our standard publication format.
+
+```{r convert_date}
+convert_date("2024-11")
+
+```
+
+The function `convert_col_date` extends this function to apply it over a whole column, primarily for use in mutating data frames.
+
+
+```{r convert_col_date}
+data %>% 
+  mutate(month = convert_col_date(month))
+
+```
+
+## Summarising by financial year
+Often, we will want to add total rows to our publication. The `adorn_totals()` function from the `janitor` package is a handy way to do this. The `sssstats` package adds `adorn_finanical_years()` to do the same but split by financial year.
+
+The helper function `financial_year()`, first lets you add a column of financial years based on date information. The default end of financial year is March 31, in line with practice within Social Security Scotland statistical publications. This behavior can be modified using function arguments if needed.
+
+```{r financial_year}
+data %>% 
+  mutate(financial_year = financial_year(ym(month)))
+
+```
+
+Once a column of financial years had been added, the function `adorn_finanical_years()` can be called to append totals split by financial year. In line with the Social Security Scotland publication table format, it appends the financial year information to the column passed to the argument `month`
+
+```{r adorn_finanical_years}
+data %>% 
+  mutate(financial_year = financial_year(ym(month))) %>% 
+  adorn_financial_years(month, financial_year) %>% 
+  tail(10)
+
+```
+
+To get the table into the correct publication format, we can then also call `adorn_totals()` and `convert_col_date()` to tidy the column `month`. `adorn_totals()` should be called immediately after `adorn_financial_years()` to avoid double counting. `convert_col_date()` is designed to be applied after the two adorn functions and will therefore ignore any columns that cannot be parsed as dates.
+
+```{r final_output}
+data %>% 
+  mutate(financial_year = financial_year(ym(month))) %>% 
+  adorn_totals() %>% 
+  adorn_financial_years(month, financial_year) %>% 
+  mutate(month = convert_col_date(month)) %>% 
+  print(n = 30)
+
+```
