@@ -7,7 +7,7 @@ Security Scotland statistics team.
 
 ## Using the package
 
-To install the package directly from GitHUb, open RStudio and run:
+To install the package directly from GitHub, open RStudio and run:
 
     devtools::install_github("ScotGovAnalysis/sssstats",
                    upgrade = "never",

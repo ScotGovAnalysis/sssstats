@@ -41,3 +41,5 @@ adorn_financial_years <- function(data, month, financial_years){
     dplyr::arrange(.data$is_fin_year) %>%
     dplyr::select(-c(.data$is_fin_year))
 }
+
+
