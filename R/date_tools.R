@@ -48,3 +48,96 @@ financial_year <- function(date, fin_year_start_day = 1, fin_year_start_month = 
       paste0(lubridate::year(date) - 1, "-", lubridate::year(date))
   .default = (paste0(lubridate::year(date), "-", lubridate::year(date) + 1))
 }
+
+#' Create standard calendar with Scottish bank holidays
+#'
+#' This function generates a calendar using Scottish bank holidays for use with
+#' `bizdays`.
+#' @param date_from Calendar start date
+#' @param date_to Calendar end date
+#' @export
+create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"){
+  weekend <-  c("saturday", "sunday")
+  bank_holidays_scot <- lubridate::ymd(
+    c(
+      "2025-01-02",
+      "2025-01-01",
+      "2024-12-26",
+      "2024-12-25",
+      "2024-12-02",
+      "2024-05-27",
+      "2024-05-06",
+      "2024-03-29",
+      "2024-01-02",
+      "2024-01-01",
+      "2023-12-26",
+      "2023-12-25",
+      "2023-11-30",
+      "2023-08-07",
+      "2023-05-29",
+      "2023-05-08",
+      "2023-05-01",
+      "2023-04-07",
+      "2023-01-03",
+      "2023-01-02",
+      "2022-12-27",
+      "2022-12-26",
+      "2022-11-30",
+      "2022-08-01",
+      "2022-06-03",
+      "2022-06-02",
+      "2022-05-02",
+      "2022-04-15",
+      "2022-01-04",
+      "2022-01-03",
+      "2021-12-28",
+      "2021-12-27",
+      "2021-12-27",
+      "2021-11-30",
+      "2021-08-02",
+      "2021-05-31",
+      "2021-05-03",
+      "2021-04-02",
+      "2021-01-04",
+      "2021-01-01",
+      "2020-12-28",
+      "2020-12-25",
+      "2020-11-30",
+      "2020-08-03",
+      "2020-05-08",
+      "2020-04-10",
+      "2020-01-02",
+      "2020-01-01",
+      "2019-12-26",
+      "2019-12-25",
+      "2019-12-02",
+      "2019-08-05",
+      "2019-05-27",
+      "2019-05-06",
+      "2019-04-22",
+      "2019-04-19",
+      "2019-01-02",
+      "2019-01-01",
+      "2018-12-26",
+      "2018-12-25",
+      "2018-11-30",
+      "2018-08-06",
+      "2018-05-28",
+      "2018-05-07",
+      "2018-04-02",
+      "2018-03-30",
+      "2018-01-02",
+      "2018-01-01"
+    )
+  )
+
+  sss_calendar <- bizdays::create.calendar(
+    'sss_calendar',
+    holidays = bank_holidays_scot,
+    weekdays = weekend,
+    start.date = date_from,
+    end.date = date_to
+  )
+
+  sss_calendar
+}
