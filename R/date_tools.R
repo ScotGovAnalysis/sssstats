@@ -41,7 +41,6 @@ convert_col_date <- function(data, input_format = "%Y-%m",output_format = "%B %Y
 #' @param fin_year_start_month First month of financial year. Defaults to 4 (i.e. April).
 #' @export
 
-
 financial_year <- function(date, fin_year_start_day = 1, fin_year_start_month = 4){
   dplyr::case_when(lubridate::month(date) + lubridate::day(date) <
       fin_year_start_month + 0.01 * fin_year_start_day) ~
@@ -56,6 +55,7 @@ financial_year <- function(date, fin_year_start_day = 1, fin_year_start_month = 
 #' @param date_from Calendar start date
 #' @param date_to Calendar end date
 #' @export
+
 create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"){
   weekend <-  c("saturday", "sunday")
   bank_holidays_scot <- lubridate::ymd(
