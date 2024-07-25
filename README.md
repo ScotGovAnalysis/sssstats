@@ -38,7 +38,7 @@ below - all ideas welcome!
 
 * data import
 * excel output and formatting - there is currently another package in development 
-to do this. Get in touch if you are interested or see [here](https://github.com/izaak-jephson/excel_output)
+to do this. Get in touch if you are interested or see [here](https://github.com/izaak-jephson/excel_output).
 
 
 # Contributing to the package
