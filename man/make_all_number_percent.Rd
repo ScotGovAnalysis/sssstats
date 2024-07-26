@@ -10,7 +10,7 @@ make_all_number_percent(table, across = tidyselect::contains("Percentage"))
 \item{table}{A data frame}
 
 \item{across}{Columns to convert across. Takes tidyselect specification.
-#' Defaults to \code{contains("Percentage")}}
+Defaults to \code{contains("Percentage")}}
 }
 \description{
 This function applies \code{\link[=make_number_percent]{make_number_percent()}} across a whole table.

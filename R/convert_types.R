@@ -57,7 +57,7 @@ make_string_numeric <- function(value){
 #' This function applies [make_string_numeric()] across a whole table.
 #' @param table A data frame
 #' @param across Columns to convert across. Takes tidyselect specification.
-#' #' Defaults to `everything()`
+#' Defaults to `everything()`
 #' @export
 
 make_all_string_numeric <- function(table, across = tidyselect::everything()) {
@@ -95,7 +95,7 @@ make_number_percent <- function(value){
 #' This function applies [make_number_percent()] across a whole table.
 #' @param table A data frame
 #' @param across Columns to convert across. Takes tidyselect specification.
-#' #' Defaults to `contains("Percentage")`
+#' Defaults to `contains("Percentage")`
 #' @export
 
 make_all_number_percent <- function(table, across = tidyselect::contains("Percentage")){
@@ -105,4 +105,22 @@ make_all_number_percent <- function(table, across = tidyselect::contains("Percen
       dplyr::across(
         {{across}},
         ~ purrr::map_vec(.x, ~ make_number_percent(.x))))
+}
+
+#' Replace NA Over a Table
+#'
+#' This function applies [replace_na()] across a whole table.
+#' @param table A data frame
+#' @param replace Value to replace NA with
+#' @param across Columns to convert across. Takes tidyselect specification.
+#' Defaults to `everything()`
+#' @export
+
+replace_all_na <- function(table, replace, across = tidyselect::everything()) {
+  table %>%
+    dplyr::mutate(
+      dplyr::across(
+        {{across}},
+        ~tidyr::replace_na(.x, replace)))
+
 }

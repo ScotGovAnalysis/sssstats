@@ -2,8 +2,7 @@
 % Please edit documentation in R/import_tables.R
 \name{import_tables}
 \alias{import_tables}
-\title{This function takes an excel file of publication tables, reads in the data and
-extracts the data tables.}
+\title{Import and Extract Publication Tables}
 \usage{
 import_tables(filepath)
 }
