@@ -2,8 +2,7 @@
 % Please edit documentation in R/import_tables.R
 \name{extract_table}
 \alias{extract_table}
-\title{This function takes raw input read from a publication file and extracts the
-underlying data}
+\title{Extract Publication Table from Raw Import}
 \usage{
 extract_table(data)
 }

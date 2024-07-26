@@ -10,7 +10,7 @@ make_all_string_numeric(table, across = tidyselect::everything())
 \item{table}{A data frame}
 
 \item{across}{Columns to convert across. Takes tidyselect specification.
-#' Defaults to \code{everything()}}
+Defaults to \code{everything()}}
 }
 \description{
 This function applies \code{\link[=make_string_numeric]{make_string_numeric()}} across a whole table.

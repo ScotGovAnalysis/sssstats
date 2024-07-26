@@ -1,3 +1,5 @@
+#' Extract Publication Table from Raw Import
+#'
 #' This function takes raw input read from a publication file and extracts the
 #' underlying data
 #' @param data A data frame read from a publication file
@@ -28,6 +30,8 @@ extract_table <- function(data) {
 
 }
 
+#' Import Raw Data from Publication Tables
+#'
 #' This function takes an excel file of publication tables and reads in the data
 #' (including titles, heading and notes). Useful for debugging if `import tables()`
 #' is not working as expected.
@@ -42,6 +46,8 @@ import_raw_tables <- function(filepath) {
     purrr::map(dplyr::as_tibble)
 }
 
+#' Import and Extract Publication Tables
+#'
 #' This function takes an excel file of publication tables, reads in the data and
 #' extracts the data tables.
 #' @param filepath Excel file containing publication tables

@@ -2,9 +2,7 @@
 % Please edit documentation in R/import_tables.R
 \name{import_raw_tables}
 \alias{import_raw_tables}
-\title{This function takes an excel file of publication tables and reads in the data
-(including titles, heading and notes). Useful for debugging if \verb{import tables()}
-is not working as expected.}
+\title{Import Raw Data from Publication Tables}
 \usage{
 import_raw_tables(filepath)
 }
