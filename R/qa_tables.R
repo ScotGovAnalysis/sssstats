@@ -28,7 +28,6 @@ diff_column <- function(table_1, table_2, column) {
 
 }
 
-
 #' Take the Difference of All Matching Columns in Two Tables
 #'
 #' This function returns a table of differences for any matching numeric columns
@@ -45,18 +44,18 @@ diff_tables <- function(table_1, table_2){
 
   other_cols <- colnames(table_1)[!is_col_numeric]
 
-  diffs <- purrr::map(numeric_cols, ~ sssstats::diff_column(table_1, table_2, .))
+  diffs <- purrr::map(numeric_cols, ~ sssstats::diff_column(
+    dplyr::ungroup(table_1), dplyr::ungroup(table_2), .))
 
   filtered_table <- table_1 %>%
     dplyr::filter(dplyr::if_any(1, ~ . %in% table_2[[1]])) %>%
     dplyr::filter(dplyr::if_any(1, ~ !stringr::str_detect(., "Total"))) %>%
     dplyr::filter(dplyr::if_any(1, ~ !stringr::str_detect(., "Financial")))
 
- # filtered_table[other_cols]
-diffs
    stats::setNames(diffs, numeric_cols) %>%
      dplyr::as_tibble() %>%
      dplyr::bind_cols(filtered_table[other_cols]) %>%
-     dplyr::relocate(tidyselect::all_of(other_cols), .before = tidyselect::everything())
+     dplyr::relocate(tidyselect::all_of(other_cols),
+                     .before = tidyselect::everything())
 
 }
