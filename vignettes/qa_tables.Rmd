@@ -1,0 +1,19 @@
+---
+title: "qa_tables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{qa_tables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(sssstats)
+```
