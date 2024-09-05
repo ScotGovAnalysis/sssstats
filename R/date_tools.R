@@ -141,3 +141,16 @@ create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"
 
   sss_calendar
 }
+
+
+calculate_age <- function(date_column, reference_date) {
+        # Convert dates to Date objects
+        date_column <- as.Date(date_column)
+        reference_date <- as.Date(reference_date)
+
+        # Floor age to nearest integer
+        age_years <- floor(time_length(interval(date_column, reference_date), "years"))
+
+        return(age_years)
+      }
+
