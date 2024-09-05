@@ -143,7 +143,7 @@ create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"
 }
 
 
-calculate_age <- function(date_column, reference_date) {
+calculate_age_on_date <- function(date_column, reference_date) {
         # Convert dates to Date objects
         date_column <- as.Date(date_column)
         reference_date <- as.Date(reference_date)
