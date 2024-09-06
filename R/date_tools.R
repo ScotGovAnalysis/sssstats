@@ -144,7 +144,7 @@ create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"
 
 
 
-#' Calculate age in years between two dates
+#' Calculate age in years using two dates
 #'
 #' This function calculates the age someone would be between a date of birth and a given date,
 #' # either single date or column of dates
