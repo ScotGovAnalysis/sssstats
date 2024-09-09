@@ -43,9 +43,9 @@ convert_col_date <- function(data, input_format = "%Y-%m",output_format = "%B %Y
 
 financial_year <- function(date, fin_year_start_day = 1, fin_year_start_month = 4){
   dplyr::case_when(lubridate::month(date) + lubridate::day(date) <
-      fin_year_start_month + 0.01 * fin_year_start_day) ~
-      paste0(lubridate::year(date) - 1, "-", lubridate::year(date))
-  .default = (paste0(lubridate::year(date), "-", lubridate::year(date) + 1))
+      fin_year_start_month + 0.01 * fin_year_start_day ~
+      paste0(lubridate::year(date) - 1, "-", lubridate::year(date)),
+  .default = paste0(lubridate::year(date), "-", lubridate::year(date) + 1))
 }
 
 #' Create standard calendar with Scottish bank holidays
