@@ -2,6 +2,7 @@
 
 export("%>%")
 export(adorn_financial_years)
+export(age_on_date)
 export(bucket_other)
 export(convert_col_date)
 export(convert_date)
