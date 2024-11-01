@@ -28,7 +28,7 @@ convert_date <- function(date, input_format = "%Y-%m",output_format = "%B %Y") {
 #' @export
 
 convert_col_date <- function(data, input_format = "%Y-%m",output_format = "%B %Y") {
-  data %>% purrr::modify(convert_date)
+  data %>% purrr::modify(convert_date, input_format = input_format, output_format = output_format)
 }
 
 
