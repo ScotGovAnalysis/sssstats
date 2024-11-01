@@ -96,3 +96,21 @@ data %>%
   print(n = 30)
 
 ```
+## Calulating age on date
+The function `age_on_date()` can be used to calculate the age someone will be on a given date, either as a single reference date, or a matching column of dates compared to their date of birth.
+
+```{r example data, echo = FALSE}
+data = tibble(
+  dob = c(ymd("1990-01-13"),ymd("2002-04-08"),ymd("1987-08-03"),ymd("2008-12-24"),ymd("2002-05-15")),
+  application_date = c(ymd("2021-03-04"),ymd("2022-07-08"),ymd("2022-11-11"),ymd("2023-02-28"),ymd("2023-07-01"))
+  )
+```
+
+```{r show example data}
+data
+
+data$'Age on Application Date' <- age_on_date(data$dob, data$application_date)
+data$'Age on Christmas 2023' <- age_on_date(data$dob, ymd("2023-12-25"))
+
+data
+```
