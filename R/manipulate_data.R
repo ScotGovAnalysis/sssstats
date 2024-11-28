@@ -30,7 +30,7 @@ convert_to_age_band <- function(data, age_col, age_breaks, na = "Unknown"){
 age_band_spec <-
   create_age_band_spec(age_breaks) %>%
   dplyr::mutate(
-    cond = glue::glue('{age_col} >= "{low}" & {age_col} < "{high}" ~ "{name}"'),
+    cond = glue::glue('{age_col} >= {low} & {age_col} < {high} ~ "{name}"'),
     cond = rlang::parse_exprs(.data$cond)
   )
 
