@@ -35,17 +35,16 @@ convert_col_date <- function(data, input_format = "%Y-%m",output_format = "%B %Y
 #' Convert Date into Financial Year
 #'
 #' This function takes a date object as input, and outputs string corresponding to
-#' financial year. Defaults to counting financial year start as 1 April.
+#' financial year starting at 1 April.
 #' @param date Date to be converted to new format
-#' @param fin_year_start_day First day of financial year. Defaults to 1.
-#' @param fin_year_start_month First month of financial year. Defaults to 4 (i.e. April).
 #' @export
 
-financial_year <- function(date, fin_year_start_day = 1, fin_year_start_month = 4){
-  dplyr::case_when(lubridate::month(date) + lubridate::day(date) <
-      fin_year_start_month + 0.01 * fin_year_start_day ~
-      paste0(lubridate::year(date) - 1, "-", lubridate::year(date)),
-  .default = paste0(lubridate::year(date), "-", lubridate::year(date) + 1))
+financial_year <- function(date) {
+  dplyr::if_else(
+    lubridate::month(date) <= 3,
+    paste0(lubridate::year(date) - 1, "-", lubridate::year(date)),
+    paste0(lubridate::year(date), "-", lubridate::year(date) + 1)
+  )
 }
 
 #' Create standard calendar with Scottish bank holidays

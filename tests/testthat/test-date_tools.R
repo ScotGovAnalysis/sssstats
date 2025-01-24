@@ -23,3 +23,19 @@ test_that("convert_col_date() converts a whole column of dates within a datafram
                  dplyr::mutate(dates = convert_col_date(dates)),
                dplyr::tibble(dates = c("November 2024", "December 2024", "January 2025")))
 })
+test_that("financial_year() coverts a data objection into financial year", {
+  test_jan_mar_data <- tibble::tibble(dates = seq(as.Date("2024-01-01"),
+                                                  as.Date("2024-03-31"),
+                                                  by = "day"),
+                                      calculated_fy = financial_year(dates),
+                                      expected_fy = "2023-2024")
+
+  test_apr_dec_data <- tibble::tibble(dates = seq(as.Date("2024-04-01"),
+                                                  as.Date("2024-12-31"),
+                                                  by = "day"),
+                                      calculated_fy = financial_year(dates),
+                                      expected_fy = "2024-2025")
+
+  expect_equal(test_jan_mar_data$calculated_fy, test_jan_mar_data$expected_fy)
+  expect_equal(test_apr_dec_data$calculated_fy, test_apr_dec_data$expected_fy)
+})
