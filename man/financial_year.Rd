@@ -4,16 +4,12 @@
 \alias{financial_year}
 \title{Convert Date into Financial Year}
 \usage{
-financial_year(date, fin_year_start_day = 1, fin_year_start_month = 4)
+financial_year(date)
 }
 \arguments{
 \item{date}{Date to be converted to new format}
-
-\item{fin_year_start_day}{First day of financial year. Defaults to 1.}
-
-\item{fin_year_start_month}{First month of financial year. Defaults to 4 (i.e. April).}
 }
 \description{
 This function takes a date object as input, and outputs string corresponding to
-financial year. Defaults to counting financial year start as 1 April.
+financial year starting at 1 April.
 }
