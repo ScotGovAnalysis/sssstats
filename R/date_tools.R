@@ -59,6 +59,15 @@ create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"
   weekend <-  c("saturday", "sunday")
   bank_holidays_scot <- lubridate::ymd(
     c(
+      "2026-01-02",
+      "2026-01-01",
+      "2025-12-26",
+      "2025-12-25",
+      "2025-11-28",
+      "2025-05-26",
+      "2025-05-05",
+      "2025-04-21",
+      "2025-04-18",
       "2025-01-02",
       "2025-01-01",
       "2024-12-26",
@@ -129,6 +138,7 @@ create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"
       "2018-01-01"
     )
   )
+
 
   sss_calendar <- bizdays::create.calendar(
     'sss_calendar',
