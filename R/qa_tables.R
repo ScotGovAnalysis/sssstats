@@ -13,15 +13,11 @@ diff_column <- function(table_1, table_2, column) {
   this_time <-
     table_2 %>%
     dplyr::filter(dplyr::if_any(1, ~ . %in% table_1[[1]])) %>%
-    dplyr::filter(dplyr::if_any(1, ~ !stringr::str_detect(., "Total"))) %>%
-    dplyr::filter(dplyr::if_any(1, ~ !stringr::str_detect(., "Financial"))) %>%
     dplyr::pull(table_2[column] %>% colnames())
 
   last_time <-
     table_1 %>%
     dplyr::filter(dplyr::if_any(1, ~ . %in% table_2[[1]])) %>%
-    dplyr::filter(dplyr::if_any(1, ~ !stringr::str_detect(., "Total"))) %>%
-    dplyr::filter(dplyr::if_any(1, ~ !stringr::str_detect(., "Financial"))) %>%
     dplyr::pull(table_1[column] %>% colnames())
 
   last_time - this_time
@@ -48,9 +44,7 @@ diff_tables <- function(table_1, table_2){
     dplyr::ungroup(table_1), dplyr::ungroup(table_2), .))
 
   filtered_table <- table_1 %>%
-    dplyr::filter(dplyr::if_any(1, ~ . %in% table_2[[1]])) %>%
-    dplyr::filter(dplyr::if_any(1, ~ !stringr::str_detect(., "Total"))) %>%
-    dplyr::filter(dplyr::if_any(1, ~ !stringr::str_detect(., "Financial")))
+    dplyr::filter(dplyr::if_any(1, ~ . %in% table_2[[1]]))
 
    stats::setNames(diffs, numeric_cols) %>%
      dplyr::as_tibble() %>%
