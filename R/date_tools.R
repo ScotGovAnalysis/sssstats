@@ -167,7 +167,7 @@ age_on_date <- function(date_column, reference_date) {
         reference_date <- as.Date(reference_date)
 
         # Floor age to nearest integer
-        age_years <- floor(time_length(interval(date_column, reference_date), "years"))
+        age_years <- floor(lubridate::time_length(lubridate::interval(date_column, reference_date), "years"))
 
         return(age_years)
       }

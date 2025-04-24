@@ -17,6 +17,26 @@ make_supp_negative <- function(value, convert = "\\[c\\]"){
   else value
 }
 
+#' Converts Low Value to -100
+#'
+#' This function take a value and if it is labelled low converts it to the string
+#' "-100".
+#' Defaults to converting the string "\[low\]".
+#' This is useful for preparing suppressed tables for excel output and
+#' manipulating numeric columns with suppression.
+#' @param value Value to be converted
+#' @param convert String indicating low value, to be converted
+#' @export
+
+make_low_negative <- function(value, convert = "\\[low\\]"){
+  if(is.character(value)) {
+    value %>%
+      stringr::str_replace(convert, "-100")
+  }
+  else value
+}
+
+
 #' Converts Suppressed Values to -1 Over a Table
 #'
 #' This function applies [make_supp_negative()] across a whole table.
@@ -35,6 +55,26 @@ make_all_supp_negative <- function(table, convert = "\\[c\\]", across = tidysele
         {{across}},
         ~ purrr::modify(.x, ~ make_supp_negative(.x, convert = convert))))
 }
+
+#' Converts Low Values to -100 Over a Table
+#'
+#' This function applies [make_low_negative()] across a whole table.
+#' Defaults to converting the string "\[low\]".
+#' @param table A data frame
+#' @param convert String indicating low value, to be converted
+#' @param across Columns to convert across. Takes tidyselect specification.
+#' Defaults to `everything()`
+#' @export
+
+make_all_low_negative <- function(table, convert = "\\[low\\]", across = tidyselect::everything()){
+
+  table %>%
+    dplyr::mutate(
+      dplyr::across(
+        {{across}},
+        ~ purrr::modify(.x, ~ make_low_negative(.x, convert = convert))))
+}
+
 
 #' Converts String to Numeric If Possible
 #'
