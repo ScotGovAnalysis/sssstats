@@ -1,4 +1,4 @@
-#' get_simd Creates simd lookup
+#' get_simd_lookup Creates simd lookup
 #' @description Uses opendatascot package to get simd data and put it in a nice format.
 #' @importFrom opendatascot ods_dataset
 #' @importFrom tidyr unite pivot_wider
@@ -6,7 +6,7 @@
 #' @return dataframe
 #' @export
 
-get_simd <- function() {
+get_simd_lookup <- function() {
   opendatascot::ods_dataset("scottish-index-of-multiple-deprivation",
                             simdDomain = "simd"
   ) |>
