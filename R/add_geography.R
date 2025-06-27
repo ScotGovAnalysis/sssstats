@@ -110,7 +110,7 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
   # - Local authority area (la_name and la_code)
   # - Health board (hb_code and hb_name)
   # - Urban rural classification 8-fold (ur8_code and ur8_name).
-  dz_2022_lookup <- LIBsss::get_datazone_lookup("2022") |>
+  dz_2022_lookup <- sssstats::get_datazone_lookup("2022") |>
     dplyr::select(
       dz22_code,
       la_code,
@@ -124,7 +124,7 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
   # As the current version of Scottish Index of Multiple Deprivation (SIMD) code
   # is based on the 2011 data zone code, uses the SIMD lookup to get the
   # quintile and decile values.
-  simd_lookup <- LIBsss::get_simd_lookup() |>
+  simd_lookup <- sssstats::get_simd_lookup() |>
     dplyr::select(
       ref_area,
       simd_2020_quintile,

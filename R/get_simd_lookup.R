@@ -1,9 +1,10 @@
 #' get_simd_lookup Creates simd lookup
-#' @description Uses opendatascot package to get simd data and put it in a nice format.
+#' @description Uses opendatascot package to get the simd lookup required
+#' for the Social Security Scotland official statistics publications.
 #' @importFrom opendatascot ods_dataset
 #' @importFrom tidyr unite pivot_wider
-#' @importFrom dplyr rename mutate
-#' @return dataframe
+#' @importFrom janitor clean_names
+#' @return data frame
 #' @export
 
 get_simd_lookup <- function() {
@@ -18,10 +19,5 @@ get_simd_lookup <- function() {
       names_from = simd_variable,
       values_from = value
     ) |>
-    # mutate not rename so the function is compatible with previous code
-    # but still keeps the cleaner variable names for future use
-    dplyr::mutate(
-      dz2011_code = refArea,
-      simd2020v2_quintile = simd_2020_quintile
-    )
+    janitor::clean_names(case = "snake")
 }
