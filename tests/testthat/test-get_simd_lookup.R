@@ -1,5 +1,5 @@
 test_that("lookup table for simd made", {
-  simd_data <- get_simd()
+  simd_data <- get_simd_lookup()
 
   # check if result is a dataframe
   expect_true(is.data.frame(simd_data))
