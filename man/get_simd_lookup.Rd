@@ -7,8 +7,9 @@
 get_simd_lookup()
 }
 \value{
-dataframe
+data frame
 }
 \description{
-Uses opendatascot package to get simd data and put it in a nice format.
+Uses opendatascot package to get the simd lookup required
+for the Social Security Scotland official statistics publications.
 }
