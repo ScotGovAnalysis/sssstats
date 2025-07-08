@@ -1,7 +1,5 @@
 test_that("add_geography works", {
-
-  # This test will fail unless you have a config file.
-  # You could type in the path to the server but we can't put that on Github either
+  config <- config::get()
 
   test_data <- tibble::tibble(
     postcode = c(

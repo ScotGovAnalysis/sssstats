@@ -126,7 +126,7 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
   # quintile and decile values.
   simd_lookup <- sssstats::get_simd_lookup() |>
     dplyr::select(
-      ref_area,
+      feature_code,
       simd_2020_quintile,
       simd_2020_decile
     )
@@ -137,7 +137,7 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
                      by = c("data_zone2022code" = "dz22_code")
     ) |>
     dplyr::left_join(simd_lookup,
-                     by = c("data_zone2011code" = "ref_area")
+                     by = c("data_zone2011code" = "feature_code")
     )
 
   # Makes a list of Scottish postcode areas, excluding "CA" as these used to be

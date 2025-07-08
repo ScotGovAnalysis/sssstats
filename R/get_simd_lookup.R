@@ -1,23 +1,33 @@
 #' get_simd_lookup Creates simd lookup
-#' @description Uses opendatascot package to get the simd lookup required
-#' for the Social Security Scotland official statistics publications.
-#' @importFrom opendatascot ods_dataset
-#' @importFrom tidyr unite pivot_wider
+#' @description downloads and cleans Scottish Index of Multiple Deprivation data from https://statistics.gov.scot
+#' @importFrom readr read_csv
 #' @importFrom janitor clean_names
+#' @importFrom dplyr filter select
+#' @importFrom tidyr unite pivot_wider
 #' @return data frame
 #' @export
 
 get_simd_lookup <- function() {
-  opendatascot::ods_dataset("scottish-index-of-multiple-deprivation",
-                            simdDomain = "simd"
-  ) |>
+
+  simd_link <- paste0("https://statistics.gov.scot/downloads/",
+                      "cube-table?uri=http%3A%2F%2F",
+                      "statistics.gov.scot%2Fdata%2F",
+                      "scottish-index-of-multiple-deprivation")
+
+  simd <- readr::read_csv(simd_link) |>
+    janitor::clean_names() |>
+    dplyr::filter(simd_domain == "SIMD") |>
+    dplyr::select(feature_code, simd_domain, date_code, measurement, value) |>
     tidyr::unite(
       col = "simd_variable",
-      c("simdDomain", "refPeriod", "measureType")
+      c("simd_domain", "date_code", "measurement"),
+      remove = TRUE,
+      na.rm = TRUE
     ) |>
     tidyr::pivot_wider(
       names_from = simd_variable,
       values_from = value
     ) |>
-    janitor::clean_names(case = "snake")
+    janitor::clean_names()
+
 }
