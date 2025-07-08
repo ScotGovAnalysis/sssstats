@@ -10,6 +10,5 @@ get_simd_lookup()
 data frame
 }
 \description{
-Uses opendatascot package to get the simd lookup required
-for the Social Security Scotland official statistics publications.
+downloads and cleans Scottish Index of Multiple Deprivation data from https://statistics.gov.scot
 }
