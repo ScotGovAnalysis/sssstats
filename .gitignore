@@ -25,3 +25,5 @@ data/
 *.[rR][dD][aA][tT][aA]
 *.[rR][dD][sS]
 inst/doc
+
+config*.yml
