@@ -14,12 +14,10 @@
 #' @return A data frame.
 #' @export
 
-get_sspl_lookup<- function(folder_path){
-  the_file <- "SingleRecord.csv"
-  file_path <- paste0(folder_path, "/", the_file)
+get_sspl_lookup<- function(file_path){
 
   if(!file.exists(file_path)){
-    stop("File 'SingleRecord.csv' not found in folder: ", folder_path)
+    stop("File not found in folder: ", file_path)
   }
 
   sspl <- readr::read_csv(file_path) |>
