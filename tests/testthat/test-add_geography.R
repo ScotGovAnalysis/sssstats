@@ -1,8 +1,4 @@
 test_that("add_geography works", {
-
-  # This test will fail unless you have a config file.
-  # You could type in the path to the server but we can't put that on Github either
-
   test_data <- tibble::tibble(
     postcode = c(
       "AB39 2HP",
@@ -75,8 +71,21 @@ test_that("add_geography works", {
     )
   )
 
+  # setup for the sspl file
+  config <- config::get()
+  folder_path <- config$sspl_folder
+  file_path <- paste0(folder_path, "archive/singlerecord_2025_1.csv")
+
+  # collect all the lookups
+  sspl_lookup <- get_sspl_lookup(file_path)
+  datazone_lookup <- get_datazone_lookup("2022")
+  simd_lookup <- get_simd_lookup()
+
   postcodes_result <- add_geography(
     test_data,
+    sspl_lookup,
+    datazone_lookup,
+    simd_lookup,
     postcode
   )
 

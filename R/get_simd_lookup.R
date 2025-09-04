@@ -9,7 +9,7 @@
 
 get_simd_lookup <- function() {
   opendatascot::ods_dataset("scottish-index-of-multiple-deprivation",
-                            simdDomain = "simd"
+    simdDomain = "simd"
   ) |>
     tidyr::unite(
       col = "simd_variable",

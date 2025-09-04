@@ -14,9 +14,8 @@
 #' @return A data frame.
 #' @export
 
-get_sspl_lookup<- function(file_path){
-
-  if(!file.exists(file_path)){
+get_sspl_lookup <- function(file_path) {
+  if (!file.exists(file_path)) {
     stop("File not found: ", file_path)
   }
 

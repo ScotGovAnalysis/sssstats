@@ -5,10 +5,11 @@
 #' Lookup for all Social Security Scotland official statistics publications.
 #' As this lookup does not contain the local authority name, we need to join
 #' the local authority names from the data zone 2022 lookup. To add Scottish
-#' Index of Multiple Deprivation columns the 2011 datazones are needed.
+#' Index of Multiple Deprivation columns the 2011 datazones are needed and these
+#' are obtained from the sspl lookup file.
 #'
-#' Then, after cleaning the postcodes, those geography fields are added to the
-#' target data frame by joining via the postcode column.
+#' After cleaning the postcodes, the geography fields are added to the
+#' target data frame by joining on the postcode column.
 #'
 #' There are some postcodes that cannot be matched to any version of the
 #' Scottish Statistics Postcode lookup, and thus those postcodes cannot be
@@ -27,32 +28,28 @@
 #' For further explanation on the structure of a typical Scottish postcode:
 #'  https://www.nrscotland.gov.uk/publications/geography-postcode-information-note/.
 #'
-#'  Function defaults to using a config file for the path to the sspl file
-#'  (uses config$sspl) but if a path is given as as the third argument in the
-#'  function call then the function will use that instead. This means a config
-#'  file is not essential for use.
+#' The three lookup files can be obtained by using functions from sssstats package
+#' get_sspl_lookup();get_datazone_lookup();get_simd_lookup()
+#'
 #' @importFrom rlang enquo
 #' @importFrom dplyr mutate select left_join filter distinct pull case_when if_else
 #' @importFrom stringr str_replace_all str_replace str_extract str_detect str_to_upper str_trim
 #' @importFrom tidyselect all_of
 #' @param input_data dataset containing the postcode column
+#' @param sspl_lookup the sspl_lookup dataframe
+#' @param datazone_lookup the datazone lookup dataframe
+#' @param simd_lookup the simd lookup dataframe
 #' @param postcode_column column name containing postcode
-#' @param sspl_path (optional) path to sspl file (see description)
+
 #' @return data frame with geography fields added
 #' @export
 
-add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
+add_geography <- function(input_data,
+                          sspl_lookup,
+                          datazone_lookup,
+                          simd_lookup,
+                          postcode_column) {
   postcode_column <- rlang::enquo(postcode_column)
-
-  # gets the config file if there is one
-  # and prevents error if no config
-  config <- tryCatch(
-    config <- config::get(),
-    error = function(e) {
-      message("No config file found", e$message)
-      NULL
-    }
-  )
 
   # lists relevant geography fields from the Scottish Statistics Postcode Lookup
   sspl_keep <- c(
@@ -65,12 +62,6 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
     "intermediate_zone2011code",
     "island_code"
   )
-
-  # gets the lookup file from server
-  lookup_path <- if (!is.null(sspl_path)) sspl_path else config$sspl
-  sspl_lookup <- get_sspl_lookup(lookup_path) |>
-    dplyr::select(tidyselect::all_of(sspl_keep))
-
 
   # Regular expression for a standard UK postcode
   uk_postcode_regex <- "^([A-Z][A-HJ-Y]?\\d[A-Z\\d]? ?\\d[A-Z]{2}|GIR ?0A{2})$"
@@ -97,8 +88,8 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
         FALSE
       ),
       postcode_formatted = dplyr::if_else(valid_uk_postcode == TRUE,
-                                          temp_postcode_formatted,
-                                          NA_character_
+        temp_postcode_formatted,
+        NA_character_
       )
     ) |>
     dplyr::select(
@@ -110,7 +101,7 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
   # - Local authority area (la_name and la_code)
   # - Health board (hb_code and hb_name)
   # - Urban rural classification 8-fold (ur8_code and ur8_name).
-  dz_2022_lookup <- sssstats::get_datazone_lookup("2022") |>
+  dz_2022_lookup <- datazone_lookup |>
     dplyr::select(
       dz22_code,
       la_code,
@@ -124,20 +115,20 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
   # As the current version of Scottish Index of Multiple Deprivation (SIMD) code
   # is based on the 2011 data zone code, uses the SIMD lookup to get the
   # quintile and decile values.
-  simd_lookup <- sssstats::get_simd_lookup() |>
+  simd_lookup <- simd_lookup |>
     dplyr::select(
       ref_area,
       simd_2020_quintile,
       simd_2020_decile
     )
 
-  # Adds geography fields into the Scottish Statistics Postcode Lookup
+  # Adds columns into the Scottish Statistics Postcode Lookup
   sspl_lookup <- sspl_lookup |>
     dplyr::left_join(dz_2022_lookup,
-                     by = c("data_zone2022code" = "dz22_code")
+      by = c("data_zone2022code" = "dz22_code")
     ) |>
     dplyr::left_join(simd_lookup,
-                     by = c("data_zone2011code" = "ref_area")
+      by = c("data_zone2011code" = "ref_area")
     )
 
   # Makes a list of Scottish postcode areas, excluding "CA" as these used to be
@@ -154,7 +145,7 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
   # Adds all necessary geography fields into the input_data object
   data_with_sspl <- input_data_formatted |>
     dplyr::left_join(sspl_lookup,
-                     by = c("postcode_formatted" = "postcode")
+      by = c("postcode_formatted" = "postcode")
     )
 
   # adds suitable labels to the "name" columns for postcodes that cannot be
@@ -167,7 +158,7 @@ add_geography <- function(input_data, postcode_column, sspl_path = NULL) {
           !is.na(.x) ~ .x,
           valid_uk_postcode &
             stringr::str_extract(postcode_formatted, "^[A-Z]+")
-          %in% scottish_postcode_area ~ "Unknown - Scottish postcode",
+            %in% scottish_postcode_area ~ "Unknown - Scottish postcode",
           valid_uk_postcode ~ "Unknown - Non-Scottish postcode",
           TRUE ~ "Unknown - Other"
         )

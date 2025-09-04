@@ -4,10 +4,10 @@
 \alias{get_sspl_lookup}
 \title{get_sspl_lookup Read in the Scottish Statistics Postcode Lookup}
 \usage{
-get_sspl_lookup(folder_path)
+get_sspl_lookup(file_path)
 }
 \arguments{
-\item{folder-path}{the path to the folder containing the lookup.}
+\item{file-path}{the path to the sspl lookup file.}
 }
 \value{
 A data frame.
