@@ -17,7 +17,7 @@
 get_sspl_lookup<- function(file_path){
 
   if(!file.exists(file_path)){
-    stop("File 'SingleRecord.csv' not found in folder: ", folder_path)
+    stop("File not found: ", file_path)
   }
 
   sspl <- readr::read_csv(file_path) |>
