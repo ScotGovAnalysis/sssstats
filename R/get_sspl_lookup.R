@@ -8,16 +8,15 @@
 #' statistical production to ensure geographic consistency across all official
 #' statistics and to support the implementation of the Government Statistical
 #' Service Geography Policy.
-#' @param folder-path the path to the folder containing the lookup.
+#' @param file-path the path to the sspl lookup file.
 #' @importFrom janitor clean_names
 #' @importFrom readr read_csv
 #' @return A data frame.
 #' @export
 
-get_sspl_lookup<- function(file_path){
-
-  if(!file.exists(file_path)){
-    stop("File not found in folder: ", file_path)
+get_sspl_lookup <- function(file_path) {
+  if (!file.exists(file_path)) {
+    stop("File not found: ", file_path)
   }
 
   sspl <- readr::read_csv(file_path) |>

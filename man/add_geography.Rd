@@ -4,14 +4,24 @@
 \alias{add_geography}
 \title{add_geography Adds geography fields from the Scottish Statistics Postcode Lookup}
 \usage{
-add_geography(input_data, postcode_column, sspl_path = NULL)
+add_geography(
+  input_data,
+  sspl_lookup,
+  datazone_lookup,
+  simd_lookup,
+  postcode_column
+)
 }
 \arguments{
 \item{input_data}{dataset containing the postcode column}
 
-\item{postcode_column}{column name containing postcode}
+\item{sspl_lookup}{the sspl_lookup dataframe}
 
-\item{sspl_path}{(optional) path to sspl file (see description)}
+\item{datazone_lookup}{the datazone lookup dataframe}
+
+\item{simd_lookup}{the simd lookup dataframe}
+
+\item{postcode_column}{column name containing postcode}
 }
 \value{
 data frame with geography fields added
@@ -21,10 +31,11 @@ Selects relevant geography fields from the Scottish Statistics Postcode
 Lookup for all Social Security Scotland official statistics publications.
 As this lookup does not contain the local authority name, we need to join
 the local authority names from the data zone 2022 lookup. To add Scottish
-Index of Multiple Deprivation columns the 2011 datazones are needed.
+Index of Multiple Deprivation columns the 2011 datazones are needed and these
+are obtained from the sspl lookup file.
 
-Then, after cleaning the postcodes, those geography fields are added to the
-target data frame by joining via the postcode column.
+After cleaning the postcodes, the geography fields are added to the
+target data frame by joining on the postcode column.
 
 There are some postcodes that cannot be matched to any version of the
 Scottish Statistics Postcode lookup, and thus those postcodes cannot be
@@ -44,8 +55,6 @@ https://www.ons.gov.uk/methodology/geography/ukgeographies/postalgeography.
 For further explanation on the structure of a typical Scottish postcode:
 https://www.nrscotland.gov.uk/publications/geography-postcode-information-note/.
 
-Function defaults to using a config file for the path to the sspl file
-(uses config$sspl) but if a path is given as as the third argument in the
-function call then the function will use that instead. This means a config
-file is not essential for use.
+The three lookup files can be obtained by using functions from sssstats package
+get_sspl_lookup();get_datazone_lookup();get_simd_lookup()
 }
