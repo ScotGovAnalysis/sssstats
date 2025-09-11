@@ -51,18 +51,6 @@ add_geography <- function(input_data,
                           postcode_column) {
   postcode_column <- rlang::enquo(postcode_column)
 
-  # lists relevant geography fields from the Scottish Statistics Postcode Lookup
-  sspl_keep <- c(
-    "postcode",
-    "postcode_district",
-    "postcode_type",
-    "data_zone2022code",
-    "intermediate_zone2022code",
-    "data_zone2011code",
-    "intermediate_zone2011code",
-    "island_code"
-  )
-
   # Regular expression for a standard UK postcode
   uk_postcode_regex <- "^([A-Z][A-HJ-Y]?\\d[A-Z\\d]? ?\\d[A-Z]{2}|GIR ?0A{2})$"
 
