@@ -4,13 +4,13 @@
 \alias{get_sspl_lookup}
 \title{get_sspl_lookup Read in the Scottish Statistics Postcode Lookup}
 \usage{
-get_sspl_lookup(file_path)
+get_sspl_lookup(file_path, keep_all = FALSE)
 }
 \arguments{
-\item{file-path}{the path to the sspl lookup file.}
-}
-\value{
-A data frame.
+\item{file_path}{A string specifying the path to the CSV file containing the SSPL data.}
+
+\item{keep_all}{Logical; if \code{FALSE} (default), only a subset of columns is retained.
+If \code{TRUE}, all columns from the input file are returned.}
 }
 \description{
 Currently, the Scottish Statistics Postcode Lookup is available on this
@@ -21,4 +21,7 @@ The Scottish Statistics Postcode Lookup should be used for all official
 statistical production to ensure geographic consistency across all official
 statistics and to support the implementation of the Government Statistical
 Service Geography Policy.
+By default the function will return the 8 columns needed for official publications.
+If the optional parameter keep_all is set to TRUE then all the columns in the sspl file
+will be returned.
 }
