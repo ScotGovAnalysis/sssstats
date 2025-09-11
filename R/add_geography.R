@@ -82,7 +82,8 @@ add_geography <- function(input_data,
     ) |>
     dplyr::select(
       -postcode_clean,
-      -temp_postcode_formatted
+      -temp_postcode_formatted,
+      -raw_postcode
     )
 
   # Uses the data zone 2022 lookup to get the following code and code-names:
