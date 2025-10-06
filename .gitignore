@@ -11,6 +11,8 @@ data/
 # Common text files that may contain data #
 *.[cC][sS][vV]
 *.[tT][xX][tT]
+# Except for the mock Scottish Statistics Postcode Lookup CSV file
+!tests/testthat/sspl_data/singlerecord_mock.csv
 
 # Excel files #
 *.[xX][lL][sS]*
