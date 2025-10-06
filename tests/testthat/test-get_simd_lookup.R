@@ -4,6 +4,6 @@ test_that("lookup table for simd made", {
   # check if result is a dataframe
   expect_true(is.data.frame(simd_data))
 
-  # check at least 5000 rows of data
-  expect_gte(nrow(simd_data), 5000)
+  # check that there are 6,976 rows
+  expect_equal(nrow(simd_data), 6976)
 })
