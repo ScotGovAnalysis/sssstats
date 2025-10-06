@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_datazone_lookup.R
 \name{get_datazone_lookup}
 \alias{get_datazone_lookup}
-\title{get_datazone_lookup}
+\title{Create the data zone lookup from statistics.gov.scot}
 \usage{
 get_datazone_lookup(census_year)
 }
@@ -16,4 +16,17 @@ A data frame.
 Function using SPARQLendpoint at https://statistics.gov.scot/sparql
 to get the correct datazone file. The function first gets the filename from
 sparql then reads it in using read_csv.
+}
+\examples{
+\dontrun{
+datazone_2022_lookup <- get_datazone_lookup("2022")
+datazone_2011_lookup <- get_datazone_lookup("2011")
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=get_simd_lookup]{get_simd_lookup()}} gets the Scottish Index of Multiple Deprivation lookup.
+\item \code{\link[=get_sspl_lookup]{get_sspl_lookup()}} gets the Scottish Statistics Postcode Lookup.
+\item \code{\link[=add_geography]{add_geography()}} adds geography fields into the input data.
+}
 }

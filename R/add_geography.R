@@ -1,4 +1,4 @@
-#' add_geography Adds geography fields from the Scottish Statistics Postcode Lookup
+#' Adds geography fields from the Scottish Statistics Postcode Lookup
 #'
 #' @description
 #' Selects relevant geography fields from the Scottish Statistics Postcode
@@ -28,8 +28,8 @@
 #' For further explanation on the structure of a typical Scottish postcode:
 #'  https://www.nrscotland.gov.uk/publications/geography-postcode-information-note/.
 #'
-#' The three lookup files can be obtained by using functions from sssstats package
-#' get_sspl_lookup();get_datazone_lookup();get_simd_lookup()
+#' The three lookup files can be obtained by using functions from sssstats
+#' package: `get_sspl_lookup`; `get_datazone_lookup` (2022) ; `get_simd_lookup`.
 #'
 #' @importFrom rlang enquo
 #' @importFrom dplyr mutate select left_join filter distinct pull case_when if_else
@@ -40,8 +40,30 @@
 #' @param datazone_lookup the datazone lookup dataframe
 #' @param simd_lookup the simd lookup dataframe
 #' @param postcode_column column name containing postcode
-
 #' @return data frame with geography fields added
+#' @seealso
+#' * [get_datazone_lookup()] gets the data zone lookup.
+#' * [get_simd_lookup()] gets the Scottish Index of Multiple Deprivation lookup.
+#' * [get_sspl_lookup()] gets the Scottish Statistics Postcode Lookup.
+#' @examples
+#' \dontrun{
+#' mock_input_data <- data.frame(postcode =
+#'   c("AB39 2HP",
+#'     "FK2     9BB",
+#'     "G20 7XN",
+#'     "G27XR",
+#'     "CA17 9UB",
+#'     "WA15 6NL",
+#'     "",
+#'     NA_character_
+#'     ))
+#'
+#' datazone_2022_lookup <- get_datazone_lookup("2022")
+#' simd_lookup <- get_simd_lookup()
+#' sspl_lookup <- get_sspl_lookup("filepath/to/SSPL CSV file")
+#' add_geography(mock_input_data, sspl_lookup, datazone_2022_lookup, simd_lookup, postcode)
+#' }
+#'
 #' @export
 
 add_geography <- function(input_data,
@@ -153,4 +175,6 @@ add_geography <- function(input_data,
         )
       )
     )
+
+  output_data
 }

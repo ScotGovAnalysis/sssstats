@@ -2,14 +2,26 @@
 % Please edit documentation in R/get_simd_lookup.R
 \name{get_simd_lookup}
 \alias{get_simd_lookup}
-\title{get_simd_lookup Creates simd lookup}
+\title{Create the Scottish Index of Multiple Deprivation (data zone 2011) lookup}
 \usage{
 get_simd_lookup()
 }
 \value{
-data frame
+A data frame.
 }
 \description{
 Uses opendatascot package to get the simd lookup required
 for the Social Security Scotland official statistics publications.
+}
+\examples{
+\dontrun{
+simd_lookup <- get_simd_lookup()
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=get_datazone_lookup]{get_datazone_lookup()}} gets the data zone lookup.
+\item \code{\link[=get_sspl_lookup]{get_sspl_lookup()}} gets the Scottish Statistics Postcode Lookup.
+\item \code{\link[=add_geography]{add_geography()}} adds geography fields into the input data.
+}
 }
