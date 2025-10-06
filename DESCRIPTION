@@ -17,7 +17,7 @@ Imports:
     jsonlite,
     lubridate,
     magrittr,
-    opendatascot,
+    opendatascot (>= 0.0.0.9000),
     openxlsx,
     purrr,
     readr,
@@ -35,3 +35,5 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Remotes:  
+    github.com::ScotGovAnalysis/opendatascot
