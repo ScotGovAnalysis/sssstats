@@ -27,12 +27,16 @@ add_geography(
 data frame with geography fields added
 }
 \description{
-Selects relevant geography fields from the Scottish Statistics Postcode
+Adds relevant geography code fields from the Scottish Statistics Postcode
 Lookup for all Social Security Scotland official statistics publications.
-As this lookup does not contain the local authority name, we need to join
-the local authority names from the data zone 2022 lookup. To add Scottish
-Index of Multiple Deprivation columns the 2011 datazones are needed and these
-are obtained from the sspl lookup file.
+
+As this lookup does not contain the local authority name and other geography
+codename required for official statistics publications, we need to join
+the local authority names from the data zone 2022 lookup.
+
+To add Scottish Index of Multiple Deprivation columns the 2011 data zone
+code is also needed and these are obtained from the Scottish Statistics
+Postcode Lookup file.
 
 After cleaning the postcodes, the geography fields are added to the
 target data frame by joining on the postcode column.

@@ -1,12 +1,15 @@
 #' Adds geography fields from the Scottish Statistics Postcode Lookup
 #'
 #' @description
-#' Selects relevant geography fields from the Scottish Statistics Postcode
-#' Lookup for all Social Security Scotland official statistics publications.
-#' As this lookup does not contain the local authority name, we need to join
-#' the local authority names from the data zone 2022 lookup. To add Scottish
-#' Index of Multiple Deprivation columns the 2011 datazones are needed and these
-#' are obtained from the sspl lookup file.
+#' Adds relevant geography code fields from the Scottish Statistics Postcode
+#' Lookup for all Social Security Scotland official statistics publications. As
+#' this lookup does not contain the local authority name and other geography
+#' code-names required for official statistics publications, we need to join
+#' the local authority names from the data zone 2022 lookup.
+#'
+#' To add Scottish Index of Multiple Deprivation columns, the 2011 data zone
+#' code is also needed and this is obtained from the Scottish Statistics
+#' Postcode Lookup file.
 #'
 #' After cleaning the postcodes, the geography fields are added to the
 #' target data frame by joining on the postcode column.
@@ -29,7 +32,7 @@
 #'  https://www.nrscotland.gov.uk/publications/geography-postcode-information-note/.
 #'
 #' The three lookup files can be obtained by using functions from sssstats
-#' package: `get_sspl_lookup`; `get_datazone_lookup` (2022) ; `get_simd_lookup`.
+#' package: `get_sspl_lookup`; `get_datazone_lookup`; `get_simd_lookup`.
 #'
 #' @importFrom rlang enquo
 #' @importFrom dplyr mutate select left_join filter distinct pull case_when if_else
@@ -40,7 +43,7 @@
 #' @param datazone_lookup the datazone lookup dataframe
 #' @param simd_lookup the simd lookup dataframe
 #' @param postcode_column column name containing postcode
-#' @return data frame with geography fields added
+#' @return a data frame with geography fields added.
 #' @seealso
 #' * [get_datazone_lookup()] gets the data zone lookup.
 #' * [get_simd_lookup()] gets the Scottish Index of Multiple Deprivation lookup.
