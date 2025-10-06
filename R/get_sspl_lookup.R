@@ -17,7 +17,8 @@
 #' If `TRUE`, all columns from the input file are returned.
 #' @importFrom readr read_csv
 #' @importFrom janitor clean_names
-#' @importFrom dplyr select all_of
+#' @importFrom dplyr all_of
+#' @importFrom tidyselect all_of
 #' @return A data frame.
 #' @seealso
 #' * [get_datazone_lookup()] gets the data zone lookup.
@@ -54,7 +55,7 @@ get_sspl_lookup <- function(file_path, keep_all = FALSE) {
 
   if (keep_all == FALSE) {
     sspl <- sspl |>
-      dplyr::select(dplyr::all_of(sspl_keep))
+      dplyr::select(tidyselect::all_of(sspl_keep))
   }
 
   sspl

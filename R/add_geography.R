@@ -133,9 +133,9 @@ add_geography <- function(input_data,
   # quintile and decile values.
   simd_lookup <- simd_lookup |>
     dplyr::select(
-      .data$ref_area,
-      .data$simd_2020_quintile,
-      .data$simd_2020_decile
+      "ref_area",
+      "simd_2020_quintile",
+      "simd_2020_decile"
     )
 
   # Adds columns into the Scottish Statistics Postcode Lookup
@@ -169,7 +169,7 @@ add_geography <- function(input_data,
   output_data <- data_with_sspl |>
     dplyr::mutate(
       dplyr::across(
-        .cols = c(.data$la_name, .data$hb_name, .data$ur8_name),
+        .cols = c("la_name", "hb_name", "ur8_name"),
         .fns = ~ dplyr::case_when(
           !is.na(.x) ~ .x,
           .data$valid_uk_postcode &

@@ -25,8 +25,8 @@ get_simd_lookup <- function() {
       c("simdDomain", "refPeriod", "measureType")
     ) |>
     tidyr::pivot_wider(
-      names_from = .data$simd_variable,
-      values_from = .data$value
+      names_from = "simd_variable",
+      values_from = "value"
     ) |>
     janitor::clean_names(case = "snake")
 }
