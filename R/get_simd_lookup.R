@@ -3,6 +3,7 @@
 #' for the Social Security Scotland official statistics publications.
 #' @importFrom opendatascot ods_dataset
 #' @importFrom tidyr unite pivot_wider
+#' @importFrom rlang .data
 #' @importFrom janitor clean_names
 #' @return A data frame.
 #' @seealso
@@ -24,8 +25,8 @@ get_simd_lookup <- function() {
       c("simdDomain", "refPeriod", "measureType")
     ) |>
     tidyr::pivot_wider(
-      names_from = simd_variable,
-      values_from = value
+      names_from = .data$simd_variable,
+      values_from = .data$value
     ) |>
     janitor::clean_names(case = "snake")
 }

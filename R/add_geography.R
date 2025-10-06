@@ -32,9 +32,9 @@
 #'  https://www.nrscotland.gov.uk/publications/geography-postcode-information-note/.
 #'
 #' The three lookup files can be obtained by using functions from sssstats
-#' package: `get_sspl_lookup`; `get_datazone_lookup`; `get_simd_lookup`.
+#' package: `get_sspl_lookup()`; `get_datazone_lookup()`; `get_simd_lookup()`.
 #'
-#' @importFrom rlang enquo
+#' @importFrom rlang enquo .data
 #' @importFrom dplyr mutate select left_join filter distinct pull case_when if_else
 #' @importFrom stringr str_replace_all str_replace str_extract str_detect str_to_upper str_trim
 #' @importFrom tidyselect all_of
@@ -84,31 +84,33 @@ add_geography <- function(input_data,
     dplyr::mutate(
       raw_postcode = !!postcode_column,
       postcode_clean = stringr::str_replace_all(
-        stringr::str_to_upper(stringr::str_trim(raw_postcode)),
+        stringr::str_to_upper(stringr::str_trim(.data$raw_postcode)),
         "\\s+", ""
       ),
       temp_postcode_formatted = dplyr::case_when(
-        is.na(raw_postcode) | stringr::str_trim(raw_postcode) == "" ~ NA_character_,
-        nchar(postcode_clean) >= 5 ~ stringr::str_replace(
-          postcode_clean,
+        is.na(.data$raw_postcode) |
+          stringr::str_trim(.data$raw_postcode) == "" ~ NA_character_,
+        nchar(.data$postcode_clean) >= 5 ~ stringr::str_replace(
+          .data$postcode_clean,
           "(.+)(.{3})$", "\\1 \\2"
         ),
-        TRUE ~ postcode_clean
+        TRUE ~ .data$postcode_clean
       ),
       valid_uk_postcode = dplyr::if_else(
-        !is.na(temp_postcode_formatted),
-        stringr::str_detect(temp_postcode_formatted, uk_postcode_regex),
+        !is.na(.data$temp_postcode_formatted),
+        stringr::str_detect(.data$temp_postcode_formatted, uk_postcode_regex),
         FALSE
       ),
-      postcode_formatted = dplyr::if_else(valid_uk_postcode == TRUE,
-        temp_postcode_formatted,
+      postcode_formatted = dplyr::if_else(
+        .data$valid_uk_postcode == TRUE,
+        .data$temp_postcode_formatted,
         NA_character_
       )
     ) |>
     dplyr::select(
-      -postcode_clean,
-      -temp_postcode_formatted,
-      -raw_postcode
+      -"postcode_clean",
+      -"temp_postcode_formatted",
+      -"raw_postcode"
     )
 
   # Uses the data zone 2022 lookup to get the following code and code-names:
@@ -117,13 +119,13 @@ add_geography <- function(input_data,
   # - Urban rural classification 8-fold (ur8_code and ur8_name).
   dz_2022_lookup <- datazone_lookup |>
     dplyr::select(
-      dz22_code,
-      la_code,
-      la_name,
-      hb_code,
-      hb_name,
-      ur8_code,
-      ur8_name
+      "dz22_code",
+      "la_code",
+      "la_name",
+      "hb_code",
+      "hb_name",
+      "ur8_code",
+      "ur8_name"
     )
 
   # As the current version of Scottish Index of Multiple Deprivation (SIMD) code
@@ -131,9 +133,9 @@ add_geography <- function(input_data,
   # quintile and decile values.
   simd_lookup <- simd_lookup |>
     dplyr::select(
-      ref_area,
-      simd_2020_quintile,
-      simd_2020_decile
+      .data$ref_area,
+      .data$simd_2020_quintile,
+      .data$simd_2020_decile
     )
 
   # Adds columns into the Scottish Statistics Postcode Lookup
@@ -149,12 +151,12 @@ add_geography <- function(input_data,
   # Scottish before 1998.
   scottish_postcode_area <- sspl_lookup |>
     dplyr::mutate(scottish = stringr::str_extract(
-      postcode_district,
+      .data$postcode_district,
       "^[A-Z]+"
     )) |>
-    dplyr::distinct(scottish) |>
-    dplyr::filter(scottish != "CA") |>
-    dplyr::pull(scottish)
+    dplyr::distinct(.data$scottish) |>
+    dplyr::filter(.data$scottish != "CA") |>
+    dplyr::pull(.data$scottish)
 
   # Adds all necessary geography fields into the input_data object
   data_with_sspl <- input_data_formatted |>
@@ -167,13 +169,13 @@ add_geography <- function(input_data,
   output_data <- data_with_sspl |>
     dplyr::mutate(
       dplyr::across(
-        .cols = c(la_name, hb_name, ur8_name),
+        .cols = c(.data$la_name, .data$hb_name, .data$ur8_name),
         .fns = ~ dplyr::case_when(
           !is.na(.x) ~ .x,
-          valid_uk_postcode &
-            stringr::str_extract(postcode_formatted, "^[A-Z]+")
+          .data$valid_uk_postcode &
+            stringr::str_extract(.data$postcode_formatted, "^[A-Z]+")
             %in% scottish_postcode_area ~ "Unknown - Scottish postcode",
-          valid_uk_postcode ~ "Unknown - Non-Scottish postcode",
+          .data$valid_uk_postcode ~ "Unknown - Non-Scottish postcode",
           TRUE ~ "Unknown - Other"
         )
       )

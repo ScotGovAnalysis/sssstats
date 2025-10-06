@@ -3,11 +3,9 @@ Title: Functions for Social Security Scotland Statisticians
 Version: 0.1.0
 Authors@R: 
     person("Izaak", "Jephson", , "izaak.jephson@socialsecurity.gov.scot", role = c("aut", "cre"))
-Description: Useful helper functions designed for use in Social Security Scotland Statistics team.
+Description: Useful helper functions designed for use in Social Security
+    Scotland Statistics team.
 License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Imports: 
     bizdays,
     dplyr,
@@ -33,5 +31,9 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
-VignetteBuilder: knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

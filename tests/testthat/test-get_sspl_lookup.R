@@ -1,11 +1,11 @@
 test_that("get_sspl_lookup works", {
   file_path <- testthat::test_path("sspl_data", "singlerecord_mock.csv")
   sspl_result <- get_sspl_lookup(file_path)
-  key_column_names <- c("postcode", "data_zone2022code", "data_zone2011code")
+  key_code_names <- c("postcode", "data_zone2022code", "data_zone2011code")
 
   expect_equal(nrow(sspl_result), 10)
   expect_equal(ncol(sspl_result), 9)
-  expect_equal(all(key_column_names %in% colnames(sspl_result)), TRUE)
+  expect_equal(all(key_code_names %in% colnames(sspl_result)), TRUE)
 })
 
 test_that("get_sspl_lookup errors correctly", {

@@ -24,18 +24,17 @@ add_geography(
 \item{postcode_column}{column name containing postcode}
 }
 \value{
-data frame with geography fields added
+a data frame with geography fields added.
 }
 \description{
 Adds relevant geography code fields from the Scottish Statistics Postcode
-Lookup for all Social Security Scotland official statistics publications.
-
-As this lookup does not contain the local authority name and other geography
-codename required for official statistics publications, we need to join
+Lookup for all Social Security Scotland official statistics publications. As
+this lookup does not contain the local authority name and other geography
+code-names required for official statistics publications, we need to join
 the local authority names from the data zone 2022 lookup.
 
-To add Scottish Index of Multiple Deprivation columns the 2011 data zone
-code is also needed and these are obtained from the Scottish Statistics
+To add Scottish Index of Multiple Deprivation columns, the 2011 data zone
+code is also needed and this is obtained from the Scottish Statistics
 Postcode Lookup file.
 
 After cleaning the postcodes, the geography fields are added to the
@@ -60,7 +59,7 @@ For further explanation on the structure of a typical Scottish postcode:
 https://www.nrscotland.gov.uk/publications/geography-postcode-information-note/.
 
 The three lookup files can be obtained by using functions from sssstats
-package: \code{get_sspl_lookup}; \code{get_datazone_lookup} (2022) ; \code{get_simd_lookup}.
+package: \code{get_sspl_lookup()}; \code{get_datazone_lookup()}; \code{get_simd_lookup()}.
 }
 \examples{
 \dontrun{
