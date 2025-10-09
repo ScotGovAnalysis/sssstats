@@ -1,22 +1,35 @@
-#' get_sspl_lookup Read in the Scottish Statistics Postcode Lookup
+#' Read in the Scottish Statistics Postcode Lookup
 #' @description
 #' Currently, the Scottish Statistics Postcode Lookup is available on this
-#'  webpage: https://www.nrscotland.gov.uk/publications/scottish-statistics-postcode-lookup/
-#'  -- future plans may include making this lookup available on https://statistics.gov.scot/home.
+#'  webpage -- there is no API endpoint:
+#'  https://www.nrscotland.gov.uk/publications/scottish-statistics-postcode-lookup/
 #'
 #' The Scottish Statistics Postcode Lookup should be used for all official
 #' statistical production to ensure geographic consistency across all official
 #' statistics and to support the implementation of the Government Statistical
 #' Service Geography Policy.
-#' By default the function will return the 8 columns needed for official publications.
-#' If the optional parameter keep_all is set to TRUE then all the columns in the sspl file
-#' will be returned.
+#' By default the function will return the 8 columns needed for official
+#' publications.
+#' If the optional parameter keep_all is set to TRUE then all the columns in
+#' the sspl file will be returned.
 #' @param file_path A string specifying the path to the CSV file containing the SSPL data.
 #' @param keep_all Logical; if `FALSE` (default), only a subset of columns is retained.
 #' If `TRUE`, all columns from the input file are returned.
 #' @importFrom readr read_csv
 #' @importFrom janitor clean_names
-#' @importFrom dplyr select all_of
+#' @importFrom dplyr all_of
+#' @importFrom tidyselect all_of
+#' @return A data frame.
+#' @seealso
+#' * [get_datazone_lookup()] gets the data zone lookup.
+#' * [get_simd_lookup()] gets the Scottish Index of Multiple Deprivation lookup.
+#' * [add_geography()] adds geography fields into the input data.
+#' @examples
+#' \dontrun{
+#' filepath_to_sspl <- "filepath/to/singlerecord.csv"
+#' sspl_lookup <- get_sspl_lookup(filepath_to_sspl)
+#' sspl_lookup_all <- get_sspl_lookup(filepath_to_sspl, keep_all = TRUE)
+#' }
 #' @export
 
 get_sspl_lookup <- function(file_path, keep_all = FALSE) {
@@ -42,8 +55,8 @@ get_sspl_lookup <- function(file_path, keep_all = FALSE) {
 
   if (keep_all == FALSE) {
     sspl <- sspl |>
-      dplyr::select(dplyr::all_of(sspl_keep))
+      dplyr::select(tidyselect::all_of(sspl_keep))
   }
 
-  return(sspl)
+  sspl
 }

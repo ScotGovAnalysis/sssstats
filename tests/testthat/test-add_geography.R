@@ -1,39 +1,34 @@
 test_that("add_geography works", {
-  test_data <- tibble::tibble(
+  # first collect all the lookups
+  file_path <- testthat::test_path("sspl_data", "singlerecord_mock.csv")
+
+  sspl_lookup <- get_sspl_lookup(file_path)
+  datazone_lookup <- get_datazone_lookup("2022")
+  simd_lookup <- get_simd_lookup()
+
+  test_data <- data.frame(
     postcode = c(
-      "AB39 2HP",
-      "FK2     9BB",
-      "G20 7XN",
-      "G27XR",
-      "TD5 7LQ",
-      "    KA26 9SD",
-      "  EH12   7HX  ",
-      "IV519TL",
-      "DG2 0RG",
-      "CA6 5DD",
+      "AB1 0AA",
+      "AB1          0AB",
+      "AB10AD",
+      "  AB1 0AE  ",
+      "AB1 0AF",
       "CA17 9UB",
       "WA15 6NL",
       "CH41 4DS",
       "AB34 999",
       "CA6 999",
-      "IRELAND",
       "ABB LAH",
       "",
       NA_character_,
-      "AB1 0AC",
-      "ZE3 9XZ"
+      "AB1 0AC"
     ),
     expected_la = c(
+      "Aberdeen City",
+      "Aberdeen City",
+      "Aberdeen City",
       "Aberdeenshire",
-      "Falkirk",
-      "Glasgow City",
-      "Glasgow City",
-      "Scottish Borders",
-      "South Ayrshire",
-      "City of Edinburgh",
-      "Highland",
-      "Dumfries and Galloway",
-      "Dumfries and Galloway",
+      "Aberdeen City",
       "Unknown - Non-Scottish postcode",
       "Unknown - Non-Scottish postcode",
       "Unknown - Non-Scottish postcode",
@@ -42,8 +37,6 @@ test_that("add_geography works", {
       "Unknown - Other",
       "Unknown - Other",
       "Unknown - Other",
-      "Unknown - Other",
-      "Unknown - Scottish postcode",
       "Unknown - Scottish postcode"
     ),
     expected_pc = c(
@@ -55,31 +48,14 @@ test_that("add_geography works", {
       TRUE,
       TRUE,
       TRUE,
-      TRUE,
-      TRUE,
-      TRUE,
-      TRUE,
-      TRUE,
       FALSE,
       FALSE,
       FALSE,
       FALSE,
       FALSE,
-      FALSE,
-      TRUE,
       TRUE
     )
   )
-
-  # setup for the sspl file
-  config <- config::get()
-  folder_path <- config$sspl_folder
-  file_path <- paste0(folder_path, "archive/singlerecord_2025_1.csv")
-
-  # collect all the lookups
-  sspl_lookup <- get_sspl_lookup(file_path)
-  datazone_lookup <- get_datazone_lookup("2022")
-  simd_lookup <- get_simd_lookup()
 
   postcodes_result <- add_geography(
     test_data,
@@ -97,4 +73,18 @@ test_that("add_geography works", {
 
   # check local authority area code-name
   expect_equal(postcodes_result$la_name, test_data$expected_la)
+
+  # check that relevant code/code-name are added as expected
+  key_code_names <- c("valid_uk_postcode",
+                      "postcode_formatted",
+                      "data_zone2022code",
+                      "la_code",
+                      "la_name",
+                      "hb_code",
+                      "hb_name",
+                      "ur8_code",
+                      "ur8_name",
+                      "island_code")
+
+  expect_equal(all(key_code_names %in% colnames(postcodes_result)), TRUE)
 })

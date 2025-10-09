@@ -1,4 +1,4 @@
-#' get_datazone_lookup
+#' Create the data zone lookup from statistics.gov.scot
 #' @description Function using SPARQLendpoint at https://statistics.gov.scot/sparql
 #'  to get the correct datazone file. The function first gets the filename from
 #'  sparql then reads it in using read_csv.
@@ -9,6 +9,15 @@
 #' @importFrom janitor clean_names
 #' @importFrom readr read_csv
 #' @return A data frame.
+#' @seealso
+#' * [get_simd_lookup()] gets the Scottish Index of Multiple Deprivation lookup.
+#' * [get_sspl_lookup()] gets the Scottish Statistics Postcode Lookup.
+#' * [add_geography()] adds geography fields into the input data.
+#' @examples
+#' \dontrun{
+#' datazone_2022_lookup <- get_datazone_lookup("2022")
+#' datazone_2011_lookup <- get_datazone_lookup("2011")
+#' }
 #' @export
 get_datazone_lookup <- function(census_year) {
   # Checks parameter is valid
@@ -58,4 +67,5 @@ get_datazone_lookup <- function(census_year) {
   datazone_lookup <- readr::read_csv(url, show_col_types = FALSE) |>
     janitor::clean_names()
 
+  datazone_lookup
 }

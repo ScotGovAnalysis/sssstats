@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_sspl_lookup.R
 \name{get_sspl_lookup}
 \alias{get_sspl_lookup}
-\title{get_sspl_lookup Read in the Scottish Statistics Postcode Lookup}
+\title{Read in the Scottish Statistics Postcode Lookup}
 \usage{
 get_sspl_lookup(file_path, keep_all = FALSE)
 }
@@ -12,16 +12,34 @@ get_sspl_lookup(file_path, keep_all = FALSE)
 \item{keep_all}{Logical; if \code{FALSE} (default), only a subset of columns is retained.
 If \code{TRUE}, all columns from the input file are returned.}
 }
+\value{
+A data frame.
+}
 \description{
 Currently, the Scottish Statistics Postcode Lookup is available on this
-webpage: https://www.nrscotland.gov.uk/publications/scottish-statistics-postcode-lookup/
--- future plans may include making this lookup available on https://statistics.gov.scot/home.
+webpage -- there is no API endpoint:
+https://www.nrscotland.gov.uk/publications/scottish-statistics-postcode-lookup/
 
 The Scottish Statistics Postcode Lookup should be used for all official
 statistical production to ensure geographic consistency across all official
 statistics and to support the implementation of the Government Statistical
 Service Geography Policy.
-By default the function will return the 8 columns needed for official publications.
-If the optional parameter keep_all is set to TRUE then all the columns in the sspl file
-will be returned.
+By default the function will return the 8 columns needed for official
+publications.
+If the optional parameter keep_all is set to TRUE then all the columns in
+the sspl file will be returned.
+}
+\examples{
+\dontrun{
+filepath_to_sspl <- "filepath/to/singlerecord.csv"
+sspl_lookup <- get_sspl_lookup(filepath_to_sspl)
+sspl_lookup_all <- get_sspl_lookup(filepath_to_sspl, keep_all = TRUE)
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=get_datazone_lookup]{get_datazone_lookup()}} gets the data zone lookup.
+\item \code{\link[=get_simd_lookup]{get_simd_lookup()}} gets the Scottish Index of Multiple Deprivation lookup.
+\item \code{\link[=add_geography]{add_geography()}} adds geography fields into the input data.
+}
 }

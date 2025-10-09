@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_geography.R
 \name{add_geography}
 \alias{add_geography}
-\title{add_geography Adds geography fields from the Scottish Statistics Postcode Lookup}
+\title{Adds geography fields from the Scottish Statistics Postcode Lookup}
 \usage{
 add_geography(
   input_data,
@@ -24,15 +24,18 @@ add_geography(
 \item{postcode_column}{column name containing postcode}
 }
 \value{
-data frame with geography fields added
+a data frame with geography fields added.
 }
 \description{
-Selects relevant geography fields from the Scottish Statistics Postcode
-Lookup for all Social Security Scotland official statistics publications.
-As this lookup does not contain the local authority name, we need to join
-the local authority names from the data zone 2022 lookup. To add Scottish
-Index of Multiple Deprivation columns the 2011 datazones are needed and these
-are obtained from the sspl lookup file.
+Adds relevant geography code fields from the Scottish Statistics Postcode
+Lookup for all Social Security Scotland official statistics publications. As
+this lookup does not contain the local authority name and other geography
+code-names required for official statistics publications, we need to join
+the local authority names from the data zone 2022 lookup.
+
+To add Scottish Index of Multiple Deprivation columns, the 2011 data zone
+code is also needed and this is obtained from the Scottish Statistics
+Postcode Lookup file.
 
 After cleaning the postcodes, the geography fields are added to the
 target data frame by joining on the postcode column.
@@ -55,6 +58,33 @@ https://www.ons.gov.uk/methodology/geography/ukgeographies/postalgeography.
 For further explanation on the structure of a typical Scottish postcode:
 https://www.nrscotland.gov.uk/publications/geography-postcode-information-note/.
 
-The three lookup files can be obtained by using functions from sssstats package
-get_sspl_lookup();get_datazone_lookup();get_simd_lookup()
+The three lookup files can be obtained by using functions from sssstats
+package: \code{get_sspl_lookup()}; \code{get_datazone_lookup()}; \code{get_simd_lookup()}.
+}
+\examples{
+\dontrun{
+mock_input_data <- data.frame(postcode =
+  c("AB39 2HP",
+    "FK2     9BB",
+    "G20 7XN",
+    "G27XR",
+    "CA17 9UB",
+    "WA15 6NL",
+    "",
+    NA_character_
+    ))
+
+datazone_2022_lookup <- get_datazone_lookup("2022")
+simd_lookup <- get_simd_lookup()
+sspl_lookup <- get_sspl_lookup("filepath/to/SSPL CSV file")
+add_geography(mock_input_data, sspl_lookup, datazone_2022_lookup, simd_lookup, postcode)
+}
+
+}
+\seealso{
+\itemize{
+\item \code{\link[=get_datazone_lookup]{get_datazone_lookup()}} gets the data zone lookup.
+\item \code{\link[=get_simd_lookup]{get_simd_lookup()}} gets the Scottish Index of Multiple Deprivation lookup.
+\item \code{\link[=get_sspl_lookup]{get_sspl_lookup()}} gets the Scottish Statistics Postcode Lookup.
+}
 }
