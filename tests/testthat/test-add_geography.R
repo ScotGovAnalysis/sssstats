@@ -1,4 +1,9 @@
 test_that("add_geography works", {
+  # `get_datazone_lookup()` relies on a live SPARQL endpoint and then downloads
+  # the file from its URL -- this would fail some GitHub Actions for R. So,
+  # skipping CI if it comes to this.
+  testthat::skip_on_ci()
+  
   # first collect all the lookups
   file_path <- testthat::test_path("sspl_data", "singlerecord_mock.csv")
 

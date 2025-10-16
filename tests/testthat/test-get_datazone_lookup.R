@@ -1,4 +1,9 @@
 test_that("data zone lookup works", {
+  # `get_datazone_lookup()` relies on a live SPARQL endpoint and then downloads
+  # the file from its URL -- this would fail some GitHub Actions for R. So,
+  # skipping CI if it comes to this.
+  testthat::skip_on_ci()
+
   dz_2011_lookup <- get_datazone_lookup("2011")
   dz_2022_lookup <- get_datazone_lookup("2022")
 
