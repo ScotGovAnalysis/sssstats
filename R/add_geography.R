@@ -46,16 +46,15 @@
 
 add_geography <- function(input_data,
                           sspl_lookup,
-                          datazone_lookup = NULL,
+                          datazone_lookup,
                           simd_lookup = NULL,
                           postcode_column) {
-
   postcode_column <- rlang::enquo(postcode_column)
 
-  geo_clean_postcode(input_data, !!postcode_column)|>
-    geo_add_columns(sspl_lookup,
-                    datazone_lookup,
-                    simd_lookup)
-
-
+  geo_clean_postcode(input_data, !!postcode_column) |>
+    geo_add_columns(
+      sspl_lookup,
+      datazone_lookup,
+      simd_lookup
+    )
 }

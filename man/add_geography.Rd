@@ -7,8 +7,8 @@
 add_geography(
   input_data,
   sspl_lookup,
-  datazone_lookup,
-  simd_lookup,
+  datazone_lookup = NULL,
+  simd_lookup = NULL,
   postcode_column
 )
 }
