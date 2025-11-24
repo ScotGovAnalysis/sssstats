@@ -1,3 +1,36 @@
+#' geo_clean_postcodes Cleans and Validates UK Postcodes
+#'
+#' This function takes a data frame and a column containing UK postcodes,
+#' cleans and formats the postcodes, validates them against a UK postcode
+#' regex, and returns the original data with two additional columns:
+#' \itemize{
+#'   \item \code{postcode_formatted}: The cleaned and properly spaced postcode (or \code{NA} if invalid).
+#'   \item \code{valid_uk_postcode}: A logical flag indicating whether the postcode is valid.
+#' }
+#'
+#' @param input_data A data frame containing the postcode column.
+#' @param postcode_column The unquoted name of the column in \code{input_data} that contains postcodes.
+#'
+#' @details
+#' The function:
+#' \enumerate{
+#'   \item Converts postcodes to uppercase and trims whitespace.
+#'   \item Removes extra spaces and inserts a space before the last three characters if length >= 5.
+#'   \item Validates the formatted postcode against a UK postcode regex pattern.
+#' }
+#'
+#' @return A data frame with all original columns and valid_uk_postcode, formatted_postcode
+#'
+#' @examples
+#' library(dplyr)
+#' test_data <- tibble(id = 1:4,
+#'                     postcode = c("TS1 4AX", "ts14ax", "INVALID", NA))
+#'
+#' geo_clean_postcode(test_data, postcode)
+#'
+#' @export
+
+
 geo_clean_postcode <- function(input_data, postcode_column) {
   postcode_column <- rlang::enquo(postcode_column)
 
