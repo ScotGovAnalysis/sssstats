@@ -30,7 +30,6 @@
 #'
 #' @export
 
-
 geo_clean_postcode <- function(input_data, postcode_column) {
   postcode_column <- rlang::enquo(postcode_column)
 
