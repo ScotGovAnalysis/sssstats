@@ -71,9 +71,10 @@
 
 add_geography <- function(input_data,
                           sspl_lookup,
-                          datazone_lookup,
-                          simd_lookup,
+                          datazone_lookup = NULL,
+                          simd_lookup = NULL,
                           postcode_column) {
+<<<<<<< HEAD
   postcode_column <- rlang::enquo(postcode_column)
 
   # Regular expression for a standard UK postcode
@@ -157,13 +158,18 @@ add_geography <- function(input_data,
     dplyr::distinct(.data$scottish) |>
     dplyr::filter(.data$scottish != "CA") |>
     dplyr::pull(.data$scottish)
+=======
 
-  # Adds all necessary geography fields into the input_data object
-  data_with_sspl <- input_data_formatted |>
-    dplyr::left_join(sspl_lookup,
-      by = c("postcode_formatted" = "postcode")
-    )
+  postcode_column <- rlang::enquo(postcode_column)
 
+  geo_clean_postcode(input_data, !!postcode_column)|>
+    geo_add_columns(sspl_lookup,
+                    datazone_lookup,
+                    simd_lookup)
+>>>>>>> splits the add_geography function by making two new functions.
+
+
+<<<<<<< HEAD
   # adds suitable labels to the "name" columns for postcodes that cannot be
   # matched to the Scottish Statistics Postcode Lookup
   output_data <- data_with_sspl |>
@@ -182,4 +188,6 @@ add_geography <- function(input_data,
     )
 
   output_data
+=======
+>>>>>>> splits the add_geography function by making two new functions.
 }
