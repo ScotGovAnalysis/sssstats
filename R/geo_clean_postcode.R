@@ -8,10 +8,10 @@ geo_clean_postcode <- function(input_data, postcode_column) {
   input_data_formatted <- input_data |>
     dplyr::mutate(
       raw_postcode = !!postcode_column,
-      postcode_clean = stringr::str_replace_all(
-        stringr::str_to_upper(stringr::str_trim(raw_postcode)),
-        "\\s+", ""
-      ),
+      postcode_clean = (raw_postcode) |>
+        stringr::str_to_upper() |>
+        stringr::str_trim() |>
+        stringr::str_replace_all("\\s+", ""),
       temp_postcode_formatted = dplyr::case_when(
         is.na(raw_postcode) | stringr::str_trim(raw_postcode) == "" ~ NA_character_,
         nchar(postcode_clean) >= 5 ~ stringr::str_replace(
