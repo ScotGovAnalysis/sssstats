@@ -23,8 +23,10 @@
 #'
 #' @examples
 #' library(dplyr)
-#' test_data <- tibble(id = 1:4,
-#'                     postcode = c("TS1 4AX", "ts14ax", "INVALID", NA))
+#' test_data <- tibble(
+#'   id = 1:4,
+#'   postcode = c("TS1 4AX", "ts14ax", "INVALID", NA)
+#' )
 #'
 #' geo_clean_postcode(test_data, postcode)
 #'
