@@ -44,8 +44,8 @@ It has been removed from add_geography to allow cleaning to be carried out
 separately to the addition of geography columns such as local authority name.
 
 This function enriches an input dataset with geographic information by joining
-Scottish Statistics Postcode Lookup (SSPL) data and optional lookups for
-Data Zones and SIMD. It also assigns descriptive labels for
+Scottish Statistics Postcode Lookup (SSPL) data,
+Data Zones and optional SIMD. It also assigns descriptive labels for
 unmatched postcodes.
 \itemize{
 \item From \code{datazone_lookup} the following fields are added:

@@ -16,7 +16,7 @@
 #' separately to the addition of geography columns such as local authority name.
 #'
 #' This function enriches an input dataset with geographic information by joining
-#' Scottish Statistics Postcode Lookup (SSPL) data and
+#' Scottish Statistics Postcode Lookup (SSPL) data,
 #' Data Zones and optional SIMD. It also assigns descriptive labels for
 #' unmatched postcodes.
 #' - From `datazone_lookup` the following fields are added:
