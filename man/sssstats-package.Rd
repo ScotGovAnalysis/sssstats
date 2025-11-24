@@ -8,8 +8,4 @@
 \description{
 Useful helper functions designed for use in Social Security Scotland Statistics team.
 }
-\author{
-\strong{Maintainer}: Izaak Jephson \email{izaak.jephson@socialsecurity.gov.scot}
-
-}
 \keyword{internal}
