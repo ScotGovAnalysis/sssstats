@@ -1,5 +1,16 @@
 #' geo_clean_postcodes Cleans and Validates UK Postcodes
 #'
+#' @param input_data A data frame containing the postcode column.
+#' @param postcode_column The unquoted name of the column in \code{input_data} that contains postcodes.
+#'
+#' @details
+#' The geo_ prefix indicates that the function is designed to be used before
+#'  adding geography columns with geo_add_columns.
+#' This function contains postcode cleaning that used to be in add_geography.
+#' It has been removed from add_geography to allow cleaning to be carried out
+#' separately to the addition of geography columns such as local authority name.
+#' It is not intended as a comprehensive stand-alone postcode cleaning function
+#' but provides the minimum required for joining with sspl.
 #' This function takes a data frame and a column containing UK postcodes,
 #' cleans and formats the postcodes, validates them against a UK postcode
 #' regex, and returns the original data with two additional columns:
@@ -7,17 +18,13 @@
 #'   \item \code{postcode_formatted}: The cleaned and properly spaced postcode (or \code{NA} if invalid).
 #'   \item \code{valid_uk_postcode}: A logical flag indicating whether the postcode is valid.
 #' }
-#'
-#' @param input_data A data frame containing the postcode column.
-#' @param postcode_column The unquoted name of the column in \code{input_data} that contains postcodes.
-#'
-#' @details
 #' The function:
 #' \enumerate{
 #'   \item Converts postcodes to uppercase and trims whitespace.
 #'   \item Removes extra spaces and inserts a space before the last three characters if length >= 5.
 #'   \item Validates the formatted postcode against a UK postcode regex pattern.
 #' }
+#' This function is called inside the add_geography function.
 #'
 #' @return A data frame with all original columns and valid_uk_postcode, formatted_postcode
 #'
