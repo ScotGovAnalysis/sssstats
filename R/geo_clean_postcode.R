@@ -11,6 +11,7 @@
 #' separately to the addition of geography columns such as local authority name.
 #' It is not intended as a comprehensive stand-alone postcode cleaning function
 #' but provides the minimum required for joining with sspl.
+#'
 #' This function takes a data frame and a column containing UK postcodes,
 #' cleans and formats the postcodes, validates them against a UK postcode
 #' regex, and returns the original data with two additional columns:
@@ -29,14 +30,13 @@
 #' @return A data frame with all original columns and valid_uk_postcode, formatted_postcode
 #'
 #' @examples
-#' library(dplyr)
+#'  \dontrun{library(dplyr)
 #' test_data <- tibble(
 #'   id = 1:4,
 #'   postcode = c("TS1 4AX", "ts14ax", "INVALID", NA)
 #' )
-#'
 #' geo_clean_postcode(test_data, postcode)
-#'
+#' }
 #' @export
 
 geo_clean_postcode <- function(input_data, postcode_column) {
