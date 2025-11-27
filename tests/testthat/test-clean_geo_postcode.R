@@ -33,8 +33,8 @@ test_that("geo_clean_postcode works", {
     )
   )
 
-  postcodes_result <- geo_clean_postcode(test_data, postcode)
+  postcode_result <- clean_geo_postcode(test_data, postcode)
 
   # check output is as expected
-  expect_equal(test_data$expected, postcodes_result$postcode_formatted)
+  expect_equal(test_data$expected, postcode_result$postcode_formatted)
 })
