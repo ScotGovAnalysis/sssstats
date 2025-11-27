@@ -22,6 +22,5 @@ simd_lookup <- get_simd_lookup()
 \itemize{
 \item \code{\link[=get_datazone_lookup]{get_datazone_lookup()}} gets the data zone lookup.
 \item \code{\link[=get_sspl_lookup]{get_sspl_lookup()}} gets the Scottish Statistics Postcode Lookup.
-\item \code{\link[=add_geography]{add_geography()}} adds geography fields into the input data.
 }
 }

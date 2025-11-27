@@ -9,7 +9,6 @@
 #' @seealso
 #' * [get_datazone_lookup()] gets the data zone lookup.
 #' * [get_sspl_lookup()] gets the Scottish Statistics Postcode Lookup.
-#' * [add_geography()] adds geography fields into the input data.
 #' @examples
 #' \dontrun{
 #' simd_lookup <- get_simd_lookup()

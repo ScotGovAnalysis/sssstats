@@ -23,7 +23,6 @@
 #' @seealso
 #' * [get_datazone_lookup()] gets the data zone lookup.
 #' * [get_simd_lookup()] gets the Scottish Index of Multiple Deprivation lookup.
-#' * [add_geography()] adds geography fields into the input data.
 #' @examples
 #' \dontrun{
 #' filepath_to_sspl <- "filepath/to/singlerecord.csv"

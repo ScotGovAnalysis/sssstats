@@ -40,6 +40,5 @@ sspl_lookup_all <- get_sspl_lookup(filepath_to_sspl, keep_all = TRUE)
 \itemize{
 \item \code{\link[=get_datazone_lookup]{get_datazone_lookup()}} gets the data zone lookup.
 \item \code{\link[=get_simd_lookup]{get_simd_lookup()}} gets the Scottish Index of Multiple Deprivation lookup.
-\item \code{\link[=add_geography]{add_geography()}} adds geography fields into the input data.
 }
 }
