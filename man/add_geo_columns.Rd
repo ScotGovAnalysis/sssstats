@@ -14,8 +14,8 @@ add_geo_columns(
 \arguments{
 \item{input_data_formatted}{A data frame containing the input data. Must include:
 \itemize{
-\item \code{postcode_formatted}: A cleaned UK postcode column.
-\item \code{valid_uk_postcode}: A logical column created by the \code{clean_geo_postcode} function.
+\item \code{postcode_formatted}: A formatted UK postcode column.
+\item \code{valid_uk_postcode}: A logical column created by the \code{format_geo_postcode()} function.
 }}
 
 \item{sspl_lookup}{A data frame containing the Scottish Statistics Postcode Lookup.}
@@ -35,21 +35,21 @@ A data frame with additional columns:
 }
 \description{
 This function takes a data frame along with the \code{postcode_formatted}
-column and adds relevant geography code fields from the Scottish Statistics
-Postcode Lookup for all Social Security Scotland official statistics
-publications.
+column (created by the \code{format_geo_postcode()} function) and adds
+relevant geography code fields from the Scottish Statistics Postcode
+Lookup for all Social Security Scotland official statistics publications.
 }
 \details{
-It is mandatory that the \code{clean_geo_postcode} function is run before the \code{add_geo_columns} function.
+It is mandatory that the \code{format_geo_postcode()} function is run before the \code{add_geo_columns()} function. Otherwise, an error message will occur.
 
 This function enriches an input dataset with relevant geographic information
 by joining Scottish Statistics Postcode Lookup (SSPL) data. As the SSPL file
-does not contain the local authority code-name and other geography
-code-names, we get those code-names from the data zone 2022 lookup. From \code{datazone_lookup} the following fields are added:
+does not contain any geography code-names, we get those code-names from the
+data zone 2022 lookup. From \code{datazone_lookup} the following fields are added:
 \itemize{
-\item \code{la_name, la_code}: Local authority area
-\item \code{hb_code, hb_name}: Health board
-\item \code{ur8_code, ur8_name}: Urban/rural classification 8-fold.
+\item \code{la_name}, \code{la_code}: Local authority area
+\item \code{hb_code}, \code{hb_name}: Health board
+\item \code{ur8_code}, \code{ur8_name}: Urban/rural classification 8-fold.
 }
 
 Optionally, we also get the Scottish Index of Multiple Deprivation (SIMD)
@@ -63,10 +63,10 @@ Scottish postcode
 \item 'Unknown - Others' if it does not meet the standard UK postcode format.
 }
 
-The three lookup files can be obtained by using functions from sssstats package
-\code{get_sspl_lookup()}; \code{get_datazone_lookup()}; \code{get_simd_lookup()}.
+The three lookup files can be obtained by using functions from the sssstats
+package: \code{get_sspl_lookup()}; \code{get_datazone_lookup()}; \code{get_simd_lookup()}.
 
-This function is called inside the \code{add_geography} function.
+This function is called inside the \code{add_geography()} function.
 }
 \examples{
 \dontrun{
@@ -80,18 +80,18 @@ mock_input_data <- data.frame(postcode =
     "",
     NA_character_
     )) |>
-    clean_geo_postcode(postcode)
+    format_geo_postcode(postcode)
 
 datazone_2022_lookup <- get_datazone_lookup("2022")
 simd_lookup <- get_simd_lookup()
 sspl_lookup <- get_sspl_lookup("filepath/to/SSPL CSV file")
-add_geo_columns(mock_input_data, sspl_lookup, datazone_2022_lookup, simd_lookup, postcode_formatted)
+add_geo_columns(mock_input_data, sspl_lookup, datazone_2022_lookup, simd_lookup)
 }
 
 }
 \seealso{
 \itemize{
-\item \code{\link[=clean_geo_postcode]{clean_geo_postcode()}} cleans the column containing postcodes within a data frame.
+\item \code{\link[=format_geo_postcode]{format_geo_postcode()}} formats the column containing postcodes within a data frame.
 \item \code{\link[=get_datazone_lookup]{get_datazone_lookup()}} gets the data zone lookup.
 \item \code{\link[=get_simd_lookup]{get_simd_lookup()}} gets the Scottish Index of Multiple Deprivation lookup.
 \item \code{\link[=get_sspl_lookup]{get_sspl_lookup()}} gets the Scottish Statistics Postcode Lookup.

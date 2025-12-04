@@ -1,34 +1,32 @@
-#' Cleans the column containing postcodes
+#' Format the column containing postcodes
 #'
 #' @description
-#' This function takes a data frame and a column containing postcodes, cleans
-#' and formats the postcodes, validates them against a regex pattern for the
-#' standard UK postcode format, and returns the original data with two
-#' additional columns:
+#' This function takes a data frame and a column containing postcodes, formats
+#' the postcodes, validates them against a regex pattern for the standard UK
+#' postcode format, and returns the original data with two additional columns:
 #' \itemize{
-#'   \item \code{postcode_formatted}: The cleaned and properly spaced postcode (or \code{NA} if invalid).
-#'   \item \code{valid_uk_postcode}: A logical flag indicating whether the formatted postcode meets the standard UK postcode format or not.
+#'   \item `postcode_formatted`: The cleaned and properly spaced postcode (or `NA` if invalid).
+#'   \item `valid_uk_postcode`: A logical flag indicating whether the formatted postcode meets the standard UK postcode format or not.
 #' }
 #'
-#'
 #' @param input_data A data frame containing the postcode column.
-#' @param postcode_column The unquoted name of the column in \code{input_data} that contains postcodes.
+#' @param postcode_column The unquoted name of the column in `input_data` that contains postcodes.
 #'
 #' @details
 #' The UK postcodes are liable to change over time and thus this function does
-#' not confirm whether a given postcode does exist or not. Instead, the
+#' not confirm whether a given postcode does exist or not. Instead, this
 #' function only assess whether the given postcode is consistent with the regex
-#' pattern for the standard UK postcode format. It is not intended as a
+#' pattern for the standard UK postcode format. This is not intended as a
 #' comprehensive stand-alone postcode cleaning function, but provides the
 #' minimum required for joining with the Scottish Statistics Postcode Lookup.
 #'
-#' The function:
+#' This function:
 #' \enumerate{
 #'   \item Converts postcodes to uppercase and trims whitespace.
 #'   \item Removes extra spaces and inserts a space before the last three characters if length >= 5.
 #'   \item Validates the formatted postcode against a UK postcode regex pattern.
 #' }
-#' This function is called inside the `add_geography` function.
+#' This function is called inside the `add_geography()` function.
 #'
 #' For further explanation on the structure of a typical UK postcode:
 #'  https://www.ons.gov.uk/methodology/geography/ukgeographies/postalgeography.
@@ -37,7 +35,7 @@
 #'  https://www.nrscotland.gov.uk/publications/geography-postcode-information-note/.
 #'
 #' @importFrom rlang .data
-#' @return A data frame with two additional columns: \code{valid_uk_postcode} and \code{formatted_postcode}
+#' @return A data frame with two additional columns: `valid_uk_postcode` and `formatted_postcode`
 #' @seealso
 #' * [add_geo_columns()] add the geography fields from the Scottish Statistics Postcode Lookup.
 #' @examples
@@ -46,11 +44,11 @@
 #'   id = 1:4,
 #'   postcode = c("AB1 0AA", "ab10ab", "INVALID", NA)
 #' )
-#' clean_geo_postcode(test_data, postcode)
+#' format_geo_postcode(test_data, postcode)
 #' }
 #' @export
 
-clean_geo_postcode <- function(input_data, postcode_column) {
+format_geo_postcode <- function(input_data, postcode_column) {
   postcode_column <- rlang::enquo(postcode_column)
 
   # Regular expression for a standard UK postcode

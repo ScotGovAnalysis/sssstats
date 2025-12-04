@@ -27,13 +27,13 @@ add_geography(
 a data frame with geography fields added.
 }
 \description{
-This function takes a data frame, and run both \code{clean_geo_postcode} and
+This function takes a data frame, and run both \code{format_geo_postcode} and
 \code{add_geo_columns} functions to add relevant geography code fields from
 the Scottish Statistics Postcode Lookup for all Social Security
 Scotland official statistics publications.
 }
 \details{
-Prior to \code{sssstats} version 0.2.1 which both \code{clean_geo_postcode()} and
+Prior to \code{sssstats} version 0.2.1 which both \code{format_geo_postcode()} and
 \code{add_geo_columns()} functions were created, this function did what the
 combination of the latter functions do.
 }
@@ -59,7 +59,7 @@ add_geography(mock_input_data, sspl_lookup, datazone_2022_lookup, simd_lookup, p
 }
 \seealso{
 \itemize{
-\item \code{\link[=clean_geo_postcode]{clean_geo_postcode()}} cleans the column containing postcodes within a data frame.
+\item \code{\link[=format_geo_postcode]{format_geo_postcode()}} formats the column containing postcodes within a data frame.
 \item \code{\link[=add_geo_columns]{add_geo_columns()}} add the geography fields from the Scottish Statistics Postcode Lookup.
 \item \code{\link[=get_datazone_lookup]{get_datazone_lookup()}} gets the data zone lookup.
 \item \code{\link[=get_simd_lookup]{get_simd_lookup()}} gets the Scottish Index of Multiple Deprivation lookup.
