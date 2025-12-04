@@ -80,7 +80,14 @@ add_geo_columns <- function(input_data_formatted,
                             datazone_lookup,
                             simd_lookup = NULL) {
 
-    dz_2022_lookup <- datazone_lookup |>
+  if (!("postcode_formatted" %in% colnames(input_data_formatted))) {
+    stop(paste(
+      "'postcode_formatted' column does not exist within input_data_formatted.",
+      "Did you run `clean_geo_postcode()` first?"
+      ))
+  }
+
+  dz_2022_lookup <- datazone_lookup |>
       dplyr::select(
         "dz22_code",
         "la_code",
@@ -91,7 +98,7 @@ add_geo_columns <- function(input_data_formatted,
         "ur8_name"
       )
 
-    sspl_lookup <- sspl_lookup |>
+  sspl_lookup <- sspl_lookup |>
       dplyr::left_join(dz_2022_lookup,
         by = c("data_zone2022code" = "dz22_code")
       )

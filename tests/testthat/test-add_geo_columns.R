@@ -171,18 +171,54 @@ test_that("add_geo_columns works without the optional SIMD lookup", {
   )
 
   # check if result is a dataframe
-  expect_true(is.data.frame(postcode_result))
+  expect_true(is.data.frame(postcode_result2))
 
   # check local authority area code-name
-  expect_equal(postcode_result$la_name, test_data$expected_la)
+  expect_equal(postcode_result2$la_name, test_data2$expected_la)
 
   # check the message for the simd lookup being not used properly
   expect_message(add_geo_columns(
-    test_data,
+    test_data2,
     sspl_lookup,
     datazone_lookup
   ), "The SIMD lookup is not supplied.")
 
   # check datazone
-  expect_equal(postcode_result$data_zone2022code, test_data$expected_dz2022)
+  expect_equal(postcode_result2$data_zone2022code, test_data2$expected_dz2022)
+})
+
+
+test_that("add_geo_columns error message works", {
+  # `get_datazone_lookup()` relies on a live SPARQL endpoint and then downloads
+  # the file from its URL -- this would fail some GitHub Actions for R. So,
+  # skipping CI if it comes to this.
+  testthat::skip_on_ci()
+
+  # first collect all the lookups
+  file_path <- testthat::test_path("sspl_data", "singlerecord_mock.csv")
+
+  sspl_lookup <- get_sspl_lookup(file_path)
+  datazone_lookup <- get_datazone_lookup("2022")
+
+  test_data3 <- tibble::tibble(
+    postcode = c(
+      "AB1 0AA",
+      "   AB1 0AB",
+      "AB1 0AD    ",
+      "  AB1    0AE   ",
+      "AB1 0AF",
+      "CA17 9UB",
+      "WA15 6NL",
+      "CH41 4DS",
+      NA_character_,
+      NA_character_,
+      NA_character_,
+      NA_character_,
+      NA_character_,
+      "AB1 0AC"
+    )
+  )
+
+  # check if an error message is expected in the absence of 'postcode_formatted'
+  expect_error(add_geo_columns(test_data3, sspl_lookup, datazone_lookup))
 })

@@ -1,4 +1,4 @@
-test_that("geo_clean_postcode works", {
+test_that("clean_geo_postcode works", {
   test_data <- tibble::tibble(
     postcode = c(
       "AB39 2HP",
@@ -16,7 +16,7 @@ test_that("geo_clean_postcode works", {
       "CH41 4DS",
       "AB34 999",
       "CA6 999",
-      "IRELAND",
+      "IRELANDSCOTLAND",
       "ABB LAH",
       "",
       NA_character_,
