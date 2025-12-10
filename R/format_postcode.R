@@ -44,11 +44,11 @@
 #'   id = 1:4,
 #'   postcode = c("AB1 0AA", "ab10ab", "INVALID", NA)
 #' )
-#' format_geo_postcode(test_data, postcode)
+#' format_postcode(test_data, postcode)
 #' }
 #' @export
 
-format_geo_postcode <- function(input_data, postcode_column) {
+format_postcode <- function(input_data, postcode_column) {
   postcode_column <- rlang::enquo(postcode_column)
 
   # Regular expression for a standard UK postcode

@@ -15,7 +15,7 @@ add_geo_columns(
 \item{input_data_formatted}{A data frame containing the input data. Must include:
 \itemize{
 \item \code{postcode_formatted}: A formatted UK postcode column.
-\item \code{valid_uk_postcode}: A logical column created by the \code{format_geo_postcode()} function.
+\item \code{valid_uk_postcode}: A logical column created by the \code{format_postcode()} function.
 }}
 
 \item{sspl_lookup}{A data frame containing the Scottish Statistics Postcode Lookup.}
@@ -35,12 +35,12 @@ A data frame with additional columns:
 }
 \description{
 This function takes a data frame along with the \code{postcode_formatted}
-column (created by the \code{format_geo_postcode()} function) and adds
+column (created by the \code{format_postcode()} function) and adds
 relevant geography code fields from the Scottish Statistics Postcode
 Lookup for all Social Security Scotland official statistics publications.
 }
 \details{
-It is mandatory that the \code{format_geo_postcode()} function is run before the \code{add_geo_columns()} function. Otherwise, an error message will occur.
+It is mandatory that the \code{format_postcode()} function is run before the \code{add_geo_columns()} function. Otherwise, an error message will occur.
 
 This function enriches an input dataset with relevant geographic information
 by joining Scottish Statistics Postcode Lookup (SSPL) data. As the SSPL file
@@ -80,7 +80,7 @@ mock_input_data <- data.frame(postcode =
     "",
     NA_character_
     )) |>
-    format_geo_postcode(postcode)
+    format_postcode(postcode)
 
 datazone_2022_lookup <- get_datazone_lookup("2022")
 simd_lookup <- get_simd_lookup()
@@ -91,7 +91,7 @@ add_geo_columns(mock_input_data, sspl_lookup, datazone_2022_lookup, simd_lookup)
 }
 \seealso{
 \itemize{
-\item \code{\link[=format_geo_postcode]{format_geo_postcode()}} formats the column containing postcodes within a data frame.
+\item \code{\link[=format_postcode]{format_postcode()}} formats the column containing postcodes within a data frame.
 \item \code{\link[=get_datazone_lookup]{get_datazone_lookup()}} gets the data zone lookup.
 \item \code{\link[=get_simd_lookup]{get_simd_lookup()}} gets the Scottish Index of Multiple Deprivation lookup.
 \item \code{\link[=get_sspl_lookup]{get_sspl_lookup()}} gets the Scottish Statistics Postcode Lookup.

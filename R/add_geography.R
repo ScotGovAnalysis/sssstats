@@ -1,7 +1,7 @@
 #' Adds geography fields from the Scottish Statistics Postcode Lookup
 #'
 #' @description
-#' This function takes a data frame, and run both `format_geo_postcode` and
+#' This function takes a data frame, and run both `format_postcode` and
 #' `add_geo_columns` functions to add relevant geography code fields from
 #' the Scottish Statistics Postcode Lookup for all Social Security
 #' Scotland official statistics publications.
@@ -14,13 +14,13 @@
 #' @param postcode_column column name containing postcode
 #'
 #' @details
-#' Prior to `sssstats` version 0.2.1 which both `format_geo_postcode()` and
+#' Prior to `sssstats` version 0.2.1 which both `format_postcode()` and
 #' `add_geo_columns()` functions were created, this function did what the
 #' combination of the latter functions do.
 #'
 #' @return a data frame with geography fields added.
 #' @seealso
-#' * [format_geo_postcode()] formats the column containing postcodes within a data frame.
+#' * [format_postcode()] formats the column containing postcodes within a data frame.
 #' * [add_geo_columns()] add the geography fields from the Scottish Statistics Postcode Lookup.
 #' * [get_datazone_lookup()] gets the data zone lookup.
 #' * [get_simd_lookup()] gets the Scottish Index of Multiple Deprivation lookup.
@@ -54,7 +54,7 @@ add_geography <- function(input_data,
 
   postcode_column <- rlang::enquo(postcode_column)
 
-  format_geo_postcode(input_data, !!postcode_column) |>
+  format_postcode(input_data, !!postcode_column) |>
     add_geo_columns(
       sspl_lookup,
       datazone_lookup,

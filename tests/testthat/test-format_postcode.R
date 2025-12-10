@@ -1,4 +1,4 @@
-test_that("format_geo_postcode works", {
+test_that("format_postcode works", {
   test_data <- tibble::tibble(
     postcode = c(
       "AB39 2HP",
@@ -33,7 +33,7 @@ test_that("format_geo_postcode works", {
     )
   )
 
-  postcode_result <- format_geo_postcode(test_data, postcode)
+  postcode_result <- format_postcode(test_data, postcode)
 
   # check output is as expected
   expect_equal(test_data$expected, postcode_result$postcode_formatted)
