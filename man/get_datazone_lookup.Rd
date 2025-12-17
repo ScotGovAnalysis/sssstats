@@ -27,6 +27,5 @@ datazone_2011_lookup <- get_datazone_lookup("2011")
 \itemize{
 \item \code{\link[=get_simd_lookup]{get_simd_lookup()}} gets the Scottish Index of Multiple Deprivation lookup.
 \item \code{\link[=get_sspl_lookup]{get_sspl_lookup()}} gets the Scottish Statistics Postcode Lookup.
-\item \code{\link[=add_geography]{add_geography()}} adds geography fields into the input data.
 }
 }

@@ -8,7 +8,7 @@ add_geography(
   input_data,
   sspl_lookup,
   datazone_lookup,
-  simd_lookup,
+  simd_lookup = NULL,
   postcode_column
 )
 }
@@ -27,39 +27,15 @@ add_geography(
 a data frame with geography fields added.
 }
 \description{
-Adds relevant geography code fields from the Scottish Statistics Postcode
-Lookup for all Social Security Scotland official statistics publications. As
-this lookup does not contain the local authority name and other geography
-code-names required for official statistics publications, we need to join
-the local authority names from the data zone 2022 lookup.
-
-To add Scottish Index of Multiple Deprivation columns, the 2011 data zone
-code is also needed and this is obtained from the Scottish Statistics
-Postcode Lookup file.
-
-After cleaning the postcodes, the geography fields are added to the
-target data frame by joining on the postcode column.
-
-There are some postcodes that cannot be matched to any version of the
-Scottish Statistics Postcode lookup, and thus those postcodes cannot be
-assigned to the relevant geography area (e.g. a local authority area etc.)
-Therefore, postcodes would be assigned to:
-\itemize{
-\item 'Unknown - Scottish postcode' if its postcode area is identified as
-Scottish postcode
-\item 'Unknown - Non-Scottish postcode' if it meets the UK standard postcode,
-but its postcode area is not identified as Scottish postcode
-\item 'Unknown - Others' if it does not meet the UK standard postcode.
+This function takes a data frame, and run both \code{format_postcode} and
+\code{add_geo_columns} functions to add relevant geography code fields from
+the Scottish Statistics Postcode Lookup for all Social Security
+Scotland official statistics publications.
 }
-
-For further explanation on the structure of a typical UK postcode:
-https://www.ons.gov.uk/methodology/geography/ukgeographies/postalgeography.
-
-For further explanation on the structure of a typical Scottish postcode:
-https://www.nrscotland.gov.uk/publications/geography-postcode-information-note/.
-
-The three lookup files can be obtained by using functions from sssstats
-package: \code{get_sspl_lookup()}; \code{get_datazone_lookup()}; \code{get_simd_lookup()}.
+\details{
+Prior to \code{sssstats} version 0.2.1 which both \code{format_postcode()} and
+\code{add_geo_columns()} functions were created, this function did what the
+combination of the latter functions do.
 }
 \examples{
 \dontrun{
@@ -83,6 +59,8 @@ add_geography(mock_input_data, sspl_lookup, datazone_2022_lookup, simd_lookup, p
 }
 \seealso{
 \itemize{
+\item \code{\link[=format_postcode]{format_postcode()}} formats the column containing postcodes within a data frame.
+\item \code{\link[=add_geo_columns]{add_geo_columns()}} add the geography fields from the Scottish Statistics Postcode Lookup.
 \item \code{\link[=get_datazone_lookup]{get_datazone_lookup()}} gets the data zone lookup.
 \item \code{\link[=get_simd_lookup]{get_simd_lookup()}} gets the Scottish Index of Multiple Deprivation lookup.
 \item \code{\link[=get_sspl_lookup]{get_sspl_lookup()}} gets the Scottish Statistics Postcode Lookup.

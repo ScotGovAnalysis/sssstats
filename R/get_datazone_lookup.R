@@ -12,7 +12,6 @@
 #' @seealso
 #' * [get_simd_lookup()] gets the Scottish Index of Multiple Deprivation lookup.
 #' * [get_sspl_lookup()] gets the Scottish Statistics Postcode Lookup.
-#' * [add_geography()] adds geography fields into the input data.
 #' @examples
 #' \dontrun{
 #' datazone_2022_lookup <- get_datazone_lookup("2022")

@@ -6,10 +6,10 @@
 \alias{sssstats-package}
 \title{sssstats: Functions for Social Security Scotland Statisticians}
 \description{
-Useful helper functions designed for use in Social Security Scotland Statistics team.
+Useful helper functions designed for use in Social Security Scotland Statistics unit.
 }
 \author{
-\strong{Maintainer}: Izaak Jephson \email{izaak.jephson@socialsecurity.gov.scot}
+\strong{Maintainer}: Social Security Scotland Statisticians \email{MI@socialsecurity.gov.scot}
 
 }
 \keyword{internal}

@@ -1,10 +1,9 @@
 Package: sssstats
 Title: Functions for Social Security Scotland Statisticians
-Version: 0.2.0
-Authors@R: 
-    person("Izaak", "Jephson", , "izaak.jephson@socialsecurity.gov.scot", role = c("aut", "cre"))
-Description: Useful helper functions designed for use in Social Security
-    Scotland Statistics team.
+Version: 0.2.1
+Authors@R:
+    person("Social Security Scotland Statisticians", "", email = "MI@socialsecurity.gov.scot", role = c("aut", "cre"))
+Description: Useful helper functions designed for use in Social Security Scotland Statistics unit.
 License: MIT + file LICENSE
 Imports: 
     bizdays,
