@@ -15,5 +15,5 @@ replace_all_na(table, replace, across = tidyselect::everything())
 Defaults to \code{everything()}}
 }
 \description{
-This function applies \code{\link[=replace_na]{replace_na()}} across a whole table.
+This function applies \code{\link[tidyr:replace_na]{tidyr::replace_na()}} across a whole table.
 }
