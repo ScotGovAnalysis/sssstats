@@ -11,11 +11,12 @@
 #' convert_date("24-11")
 #' convert_date("13/11/24", "%d/%m/%Y")
 #' convert_date("13 November 2024", "%d %B %Y", "%Y-%m")
-
-convert_date <- function(date, input_format = "%Y-%m",output_format = "%B %Y") {
-  if(!is.na(suppressWarnings(readr::parse_date(date,input_format)))) {
-      format(readr::parse_date(date,input_format), format = output_format)}
-     else date
+convert_date <- function(date, input_format = "%Y-%m", output_format = "%B %Y") {
+  if (!is.na(suppressWarnings(readr::parse_date(date, input_format)))) {
+    format(readr::parse_date(date, input_format), format = output_format)
+  } else {
+    date
+  }
 }
 
 #' Convert All Date Strings in a Vector from One Format to Another
@@ -27,7 +28,7 @@ convert_date <- function(date, input_format = "%Y-%m",output_format = "%B %Y") {
 #' @param output_format Output format of date. Defaults to "%B %Y"
 #' @export
 
-convert_col_date <- function(data, input_format = "%Y-%m",output_format = "%B %Y") {
+convert_col_date <- function(data, input_format = "%Y-%m", output_format = "%B %Y") {
   data %>% purrr::modify(convert_date, input_format = input_format, output_format = output_format)
 }
 
@@ -47,18 +48,54 @@ financial_year <- function(date) {
   )
 }
 
-#' Create standard calendar with Scottish bank holidays
+#' create_sss_calendar Creates the Social Security Scotland calendar
 #'
-#' This function generates a calendar using Scottish bank holidays for use with
-#' `bizdays`.
-#' @param date_from Calendar start date
-#' @param date_to Calendar end date
+#' @param date_from A character string or `Date` representing the start date
+#'   for the calendar. Defaults to `"2018-01-01"`.
+#'
+#' @param date_to A character string or `Date` representing the end date
+#'   for the calendar. Defaults to `"2070-01-01"`.
+#'
+#' @details
+#' Constructs a `bizdays` calendar object used for Social Security Scotland
+#' processing time calculations. The calendar defines business days as all days
+#' except Glasgow and Dundee joint bank holidays (hard‑coded within the function)
+#' and weekends (Saturday and Sunday).
+#' The calendar can be created for any date range, and is typically
+#' used when calculating processing times.
+#' The function uses a hard‑coded list of Scottish bank holidays for the years
+#' 2018–2027. If `date_to` is after the last available holiday in the
+#' list, the function emits a warning to prompt the user to update the holiday vector.
+#'
+#' This function wraps \code{bizdays::create.calendar()} and returns the created
+#' calendar object.
+#'
+#' @return
+#' A `Calendar` object (S3 class) from the **bizdays** package, containing the
+#' specified holidays, weekend structure, and date bounds.
+#'
+#' @examples
+#' \dontrun{
+#' # Create calendar for default range
+#' calendar <- create_sss_calendar("2018-01-01", "2026-12-31")
+#' }
+#'
 #' @export
 
-create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"){
-  weekend <-  c("saturday", "sunday")
+create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01") {
+  weekend <- c("saturday", "sunday")
   bank_holidays_scot <- lubridate::ymd(
     c(
+      "2027-01-04",
+      "2027-01-01",
+      "2026-12-28",
+      "2026-12-25",
+      "2026-11-30",
+      "2026-06-15",
+      "2026-05-25",
+      "2026-05-04",
+      "2026-04-06",
+      "2026-04-03",
       "2026-01-02",
       "2026-01-01",
       "2025-12-26",
@@ -139,9 +176,13 @@ create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"
     )
   )
 
-
+  # warning if the holiday list is outdated
+  if (date_to > max(bank_holidays_scot)) {
+    warning("Please check the holiday dates in function `sssstats::create_sss_calendar` are up to date.
+         The hard-coded dates are outdated for your date_to value.")
+  }
   sss_calendar <- bizdays::create.calendar(
-    'sss_calendar',
+    "sss_calendar",
     holidays = bank_holidays_scot,
     weekdays = weekend,
     start.date = date_from,
@@ -150,7 +191,6 @@ create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"
 
   sss_calendar
 }
-
 
 
 #' Calculate age in years using two dates
@@ -162,13 +202,12 @@ create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01"
 #' @export
 
 age_on_date <- function(date_column, reference_date) {
-        # Convert dates to Date objects
-        date_column <- as.Date(date_column)
-        reference_date <- as.Date(reference_date)
+  # Convert dates to Date objects
+  date_column <- as.Date(date_column)
+  reference_date <- as.Date(reference_date)
 
-        # Floor age to nearest integer
-        age_years <- floor(lubridate::time_length(lubridate::interval(date_column, reference_date), "years"))
+  # Floor age to nearest integer
+  age_years <- floor(lubridate::time_length(lubridate::interval(date_column, reference_date), "years"))
 
-        return(age_years)
-      }
-
+  return(age_years)
+}
