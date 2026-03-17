@@ -3,6 +3,7 @@
 export("%>%")
 export(add_geo_columns)
 export(add_geography)
+export(add_processing_time)
 export(adorn_financial_years)
 export(age_on_date)
 export(bucket_other)
