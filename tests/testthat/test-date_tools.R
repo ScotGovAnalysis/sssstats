@@ -39,3 +39,5 @@ test_that("financial_year() coverts a data objection into financial year", {
   expect_equal(test_jan_mar_data$calculated_fy, test_jan_mar_data$expected_fy)
   expect_equal(test_apr_dec_data$calculated_fy, test_apr_dec_data$expected_fy)
 })
+
+
