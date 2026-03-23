@@ -2,6 +2,11 @@
 
 -   Creates a new function `add_processing_time()` for calculating the number of working (business) days between two dates.
 
+# sssstats 0.2.2
+
+- adds the 2026/2027 holidays
+- moves create_sss_calendar to its own file
+
 # sssstats 0.2.1
 
 -   The existing `add_geography()` function is now split into two new functions:
