@@ -1,3 +1,7 @@
+# sssstats 0.3.0
+
+-   Creates a new function `add_processing_time()` for calculating the number of working (business) days between two dates.
+
 # sssstats 0.2.2
 
 - adds the 2026/2027 holidays
