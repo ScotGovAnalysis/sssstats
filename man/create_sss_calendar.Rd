@@ -4,14 +4,14 @@
 \alias{create_sss_calendar}
 \title{create_sss_calendar Creates the Social Security Scotland calendar}
 \usage{
-create_sss_calendar(date_from = "2018-01-01", date_to = "2070-01-01")
+create_sss_calendar(date_from = "2018-01-01", date_to = Sys.Date())
 }
 \arguments{
 \item{date_from}{A character string or \code{Date} representing the start date
 for the calendar. Defaults to \code{"2018-01-01"}.}
 
 \item{date_to}{A character string or \code{Date} representing the end date
-for the calendar. Defaults to \code{"2070-01-01"}.}
+for the calendar. Defaults to \code{Sys.Date()}.}
 }
 \value{
 A \code{Calendar} object (S3 class) from the \strong{bizdays} package, containing the

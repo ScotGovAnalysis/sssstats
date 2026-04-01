@@ -4,7 +4,7 @@
 #'   for the calendar. Defaults to `"2018-01-01"`.
 #'
 #' @param date_to A character string or `Date` representing the end date
-#'   for the calendar. Defaults to `"2070-01-01"`.
+#'   for the calendar. Defaults to `Sys.Date()`.
 #'
 #' @details
 #' Constructs a `bizdays` calendar object used for Social Security Scotland
