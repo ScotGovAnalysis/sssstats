@@ -32,7 +32,7 @@
 #'
 #' @export
 
-create_sss_calendar <- function(date_from = "2018-01-01", date_to = "2070-01-01") {
+create_sss_calendar <- function(date_from = "2018-01-01", date_to = Sys.Date()) {
   weekend <- c("saturday", "sunday")
   bank_holidays_scot <- lubridate::ymd(
     c(
