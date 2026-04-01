@@ -1,3 +1,7 @@
+# sssstats 0.3.1
+
+-   The `date_to` argument for the existing function `create_sss_calendar` is now default to `Sys.Date()` instead of `2070-01-01` to avoid triggering the warning message.
+
 # sssstats 0.3.0
 
 -   Creates a new function `add_processing_time()` for calculating the number of working (business) days between two dates.
