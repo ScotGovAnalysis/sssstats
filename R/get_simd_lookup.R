@@ -19,7 +19,7 @@ get_simd_lookup <- function() {
   opendatascot::ods_dataset("scottish-index-of-multiple-deprivation",
     simdDomain = "simd"
   ) |>
-    dplyr::distinct()|>
+    dplyr::distinct() |>
     tidyr::unite(
       col = "simd_variable",
       c("simdDomain", "refPeriod", "measureType")
