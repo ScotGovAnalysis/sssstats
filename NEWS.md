@@ -1,3 +1,5 @@
+# sssstats 0.3.3
+
 # sssstats 0.3.1
 
 -   The `date_to` argument for the existing function `create_sss_calendar` is now default to `Sys.Date()` instead of `2070-01-01` to avoid triggering the warning message.
