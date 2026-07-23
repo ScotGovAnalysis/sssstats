@@ -1,5 +1,11 @@
 # sssstats 0.3.3
 
+-   The `.gitignore` file is updated to exclude a few more file types as a caution.
+
+# sssstats 0.3.2
+
+-   The `get_simd_lookup()` function is updated slightly to remove duplicated SIMD data caused by the Open Data Platform .
+   
 # sssstats 0.3.1
 
 -   The `date_to` argument for the existing function `create_sss_calendar` is now default to `Sys.Date()` instead of `2070-01-01` to avoid triggering the warning message.
