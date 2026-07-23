@@ -13,6 +13,13 @@ data/
 *.[tT][xX][tT]
 # Except for the mock Scottish Statistics Postcode Lookup CSV file
 !tests/testthat/sspl_data/singlerecord_mock.csv
+*.parquet
+*.pdf
+*.html
+*.log
+*.doc*
+*.yml
+*.odt
 
 # Excel files #
 *.[xX][lL][sS]*
