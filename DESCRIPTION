@@ -10,6 +10,7 @@ Imports:
     dplyr,
     glue,
     httr,
+    httr2,
     janitor,
     jsonlite,
     lubridate,
