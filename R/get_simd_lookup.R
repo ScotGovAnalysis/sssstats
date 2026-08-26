@@ -32,21 +32,22 @@ get_simd_lookup <- function() {
 
     # sets up the data how we want it
     janitor::clean_names(case = "snake") |>
-    dplyr::filter(simd_domain == "SIMD") |>
+    dplyr::filter(.data$simd_domain == "SIMD") |>
     tidyr::pivot_wider(
-      id_cols = geography_code,
-      names_from = c(simd_domain, date_code, measurement),
+      id_cols = "geography_code",
+      names_from = c("simd_domain", "date_code", "measurement"),
       names_sep = "_",
-      values_from = value
+      values_from = "value"
     ) |>
     janitor::clean_names(case = "snake") |>
+    dplyr::mutate(ref_area = geography_code,)|>
     dplyr::select(
       geography_code,
       simd_2020_rank,
       simd_2020_quintile,
       simd_2020_decile,
       simd_2020_vigintile,
-      ref_area = geography_code,
+      ref_area
     ) |>
     dplyr::distinct(geography_code, .keep_all = TRUE)
 }
