@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_simd_lookup.R
 \name{get_simd_lookup}
 \alias{get_simd_lookup}
-\title{Create the Scottish Index of Multiple Deprivation (data zone 2011) lookup}
+\title{Creates the Scottish Index of Multiple Deprivation (data zone 2011) lookup}
 \usage{
 get_simd_lookup()
 }
@@ -10,8 +10,11 @@ get_simd_lookup()
 A data frame.
 }
 \description{
-Uses opendatascot package to get the simd lookup required
+Uses data.gov.scot to get the simd lookup required
 for the Social Security Scotland official statistics publications.
+
+The previous data platform returned \code{ref_area} not \code{geography_code}. A column called \code{ref_area}
+has been made to prevent breaking existing functions.
 }
 \examples{
 \dontrun{
