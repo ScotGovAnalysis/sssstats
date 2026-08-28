@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_datazone_lookup.R
 \name{get_datazone_lookup}
 \alias{get_datazone_lookup}
-\title{Create the data zone lookup from statistics.gov.scot}
+\title{Creates the data zone lookup from statistics.gov.scot}
 \usage{
 get_datazone_lookup(census_year)
 }
@@ -13,9 +13,8 @@ get_datazone_lookup(census_year)
 A data frame.
 }
 \description{
-Function using SPARQLendpoint at https://statistics.gov.scot/sparql
-to get the correct datazone file. The function first gets the filename from
-sparql then reads it in using read_csv.
+Function using data.gov.scot
+to get the correct datazone file.
 }
 \examples{
 \dontrun{
