@@ -1,6 +1,6 @@
 Package: sssstats
 Title: Functions for Social Security Scotland Statisticians
-Version: 0.3.3
+Version: 0.3.4
 Authors@R:
     person("Social Security Scotland Statisticians", "", email = "MI@socialsecurity.gov.scot", role = c("aut", "cre"))
 Description: Useful helper functions designed for use in Social Security Scotland Statistics unit.
@@ -36,4 +36,3 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-

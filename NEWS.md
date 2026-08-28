@@ -1,3 +1,5 @@
+# sssstats 0.3.4
+
 # sssstats 0.3.3
 
 -   The `.gitignore` file is updated to exclude a few more file types as a caution.
