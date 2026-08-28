@@ -1,7 +1,7 @@
-#' Creates the data zone lookup from statistics.gov.scot
+#' Creates the data zone lookup from data.gov.scot
 #' @description Function using data.gov.scot
 #'  to get the correct datazone file.
-#' @param census_year A specific Census year ("2011" or "2022")in which the Scottish data zones are derived from.
+#' @param census_year A specific Census year ("2011" or "2022") in which the Scottish data zones are derived from.
 #' @return A data frame.
 #' @seealso
 #' * [get_simd_lookup()] gets the Scottish Index of Multiple Deprivation lookup.

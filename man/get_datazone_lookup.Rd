@@ -2,12 +2,12 @@
 % Please edit documentation in R/get_datazone_lookup.R
 \name{get_datazone_lookup}
 \alias{get_datazone_lookup}
-\title{Creates the data zone lookup from statistics.gov.scot}
+\title{Creates the data zone lookup from data.gov.scot}
 \usage{
 get_datazone_lookup(census_year)
 }
 \arguments{
-\item{census_year}{A specific Census year ("2011" or "2022")in which the Scottish data zones are derived from.}
+\item{census_year}{A specific Census year ("2011" or "2022") in which the Scottish data zones are derived from.}
 }
 \value{
 A data frame.

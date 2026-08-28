@@ -1,10 +1,10 @@
-#' Creates the Scottish Index of Multiple Deprivation (data zone 2011) lookup
+#' Creates the Scottish Index of Multiple Deprivation 2020 (SIMD) lookup
 #'
-#' @description Uses data.gov.scot to get the simd lookup required
-#' for the Social Security Scotland official statistics publications.
+#' @description Uses data.gov.scot to get the SIMD (2011 data zone based) lookup
+#' required for the Social Security Scotland official statistics publications.
 #'
-#' The previous data platform returned `ref_area` not `geography_code`. A column called `ref_area`
-#' has been made to prevent breaking existing functions.
+#' The previous data platform returned `ref_area` not `geography_code`. A
+#' column called `ref_area` has been made to prevent breaking existing functions.
 #'
 #' @return A data frame.
 #' @seealso
@@ -40,7 +40,7 @@ get_simd_lookup <- function() {
       values_from = "value"
     ) |>
     janitor::clean_names(case = "snake") |>
-    dplyr::mutate(ref_area = geography_code,)|>
+    dplyr::mutate(ref_area = geography_code)|>
     dplyr::select(
       geography_code,
       simd_2020_rank,
